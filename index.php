@@ -4,8 +4,10 @@ include_once 'includes/session.php';
 require 'functions/functions.php';
 
 $random_matchups = getTenMatchup();
+// test comment
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
