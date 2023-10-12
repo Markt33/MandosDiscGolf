@@ -1,5 +1,5 @@
 <?php
-    include('test/simple_html_dom.php'); //TODO: Turn this back on later
+    //include('test/simple_html_dom.php'); //TODO: Turn this back on later
     require $_SERVER['DOCUMENT_ROOT'].'/../db.php';
 
 
