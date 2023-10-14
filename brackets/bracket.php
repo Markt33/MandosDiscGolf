@@ -8,12 +8,6 @@ include_once '../includes/session.php';
 
 require '../functions/functions.php';
 
-//$token = $_GET['token'];
-//$_SESSION['username'] = 'player';
-
-//var_dump($_SESSION['username']);
-//var_dump('TournamentID= ' + $_SESSION['tournamentIdEmail']);
-
 $tournament_id = 0;
 
 $size = count($_POST['players']);

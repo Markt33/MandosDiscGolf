@@ -48,7 +48,7 @@
 
 
     // insert matchup data into database and return
-    // matchup_id
+
     function insertMatchup($player1, $player2, $round, $tournament_id, $matchup_order, $info) {
         // connect to database
         require $_SERVER['DOCUMENT_ROOT'].'/../db.php';
@@ -58,13 +58,6 @@
 
         $result = @mysqli_query($cnxn, $sql);
 
-
-        /*$matchup_id = 0;
-        while ($row = mysqli_fetch_assoc($result)) {
-            $matchup_id = $row['matchup_id'];
-        }
-
-        return intval($matchup_id);*/
     }
 
     // update tournament and set the winner
@@ -563,29 +556,6 @@
 
         return $matchup_info;
     }
-
-
-//    function search_players($name, $pdga_number)
-//    {
-//        require $_SERVER['DOCUMENT_ROOT'].'/../db.php';
-//
-//        // prepare SQL statement
-//        $sql = "SELECT * FROM player WHERE name='%$name%' OR pdga_number='$pdga_number'";
-//        $result = $mysqli->query($sql);
-//
-//        //echo "<td>hello world</td>";
-//
-//        // print results in table
-//        while ($row = $result->fetch_assoc()) {
-//                echo "<tr>";
-//                echo "<td>" . $row['name'] . "</td>";
-//                echo "<td>" . $row['pdga_number'] . "</td>";
-//                echo "<td>" . $row['rating'] . "</td>";
-//                echo "<td>" . $row['email'] . "</td>";
-//                echo "</tr>";
-//        }
-//
-//    }
 
 function search_players($name)
 {
