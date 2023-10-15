@@ -61,7 +61,7 @@ require_once '../includes/admin_check.php';
     <br>
 <div class="d-flex flex-row flex-wrap justify-content-evenly">
     <div class="card cardv2">
-        <a href="seeding16.php" class="alink">
+        <a href="seedingPage.php" class="alink">
             <img src="../assets/logo.png" class="card-img-top hover-zoom" alt="logo.png">
             <div class="card-body">
                 <h4 class="card-title text-center">16-Competitor Tournament Form</h4>

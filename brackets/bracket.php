@@ -433,7 +433,7 @@ if (!is_null($_POST['players2'])) {
 
             $player1Id = getPlayerId($name1);
             $player2Id = getPlayerId($name2);
-            $matchupToken = getMatchupId($player1Id,$player2Id); //TODO add function to get playerid by name
+//            $matchupToken = getMatchupId($player1Id,$player2Id); //TODO add function to get playerid by name
             echo '<h1>' . $matchupToken . '</h1>';
 //            $matchupToken = 1373;
 
@@ -511,7 +511,7 @@ if (!is_null($_POST['players3'])) {
 
             $player1Id = getPlayerId($name1);
             $player2Id = getPlayerId($name2);
-            $matchupToken = getMatchupId($player1Id,$player2Id); //TODO add function to get playerid by name
+            //$matchupToken = getMatchupId($player1Id,$player2Id); //TODO add function to get playerid by name
             echo '<h1>' . $matchupToken . '</h1>';
 //            $matchupToken = 1373;
 
@@ -591,7 +591,7 @@ if (!is_null($_POST['players4'])) {
 
             $player1Id = getPlayerId($name1);
             $player2Id = getPlayerId($name2);
-            $matchupToken = getMatchupId($player1Id,$player2Id); //TODO add function to get playerid by name
+            //$matchupToken = getMatchupId($player1Id,$player2Id); //TODO add function to get playerid by name
             echo '<h1>' . $matchupToken . '</h1>';
 //            $matchupToken = 1373;
 

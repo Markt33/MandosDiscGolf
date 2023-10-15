@@ -21,9 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $updateResult = mysqli_query($cnxn, $query);
 
     if ($updateResult) {
-       echo "player 2 score update successfully";
+       echo "player 1 score update successfully";
     } else {
-        echo "player 2 score update failed";
+        echo "player 1 score update failed";
     }
 
     $score2 = $_POST['score2'];
