@@ -226,7 +226,7 @@ require_once '../includes/admin_check.php';
 <!--                    <div class="valid-feedback">Looks good!</div>-->
 <!--                    <div class="invalid-feedback">Please provide a valid rating.</div>-->
 <!--                </div>-->
-<!--                PDGA Number -->-->
+<!--                PDGA Number -->
 <!--                <div class="col-lg-3 col-md-6 col-sm-12 form-floating mb-2">-->
 <!--                    <input-->
 <!--                            type="number"-->
@@ -244,7 +244,7 @@ require_once '../includes/admin_check.php';
 <!--                        Please provide a valid PDGA number.-->
 <!--                    </div>-->
 <!--                </div>-->
-<!--                Email -->-->
+<!--                Email -->
 <!--                <div class="col-lg-3 col-md-6 col-sm-12 form-floating mb-2">-->
 <!--                    <input-->
 <!--                            type="email"-->
