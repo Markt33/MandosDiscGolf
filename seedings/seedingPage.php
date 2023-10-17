@@ -72,200 +72,47 @@ require_once '../includes/admin_check.php';
     <form
             class="container needs-validation"
             name="form1"
-            id="seedingForm"
             method="POST"
             action="ranking.php"
             novalidate
     >
         <!--Player 0-->
         <?php
-//        session_start();
         $players_data = $_SESSION['players_data'] ?? [];
-        for ($i = 0; $i <= 15; $i++){
-            $player = $players_data[$i] ?? [];
-            ?>
-            <fieldset class="row gx-2 gy-2 input-group pb-2">
-                <?php
-                for ($i = 0; $i <= 15; $i++){
-                    $player = $players_data[$i] ?? [];
-                    ?>
-                    <!-- First Name -->
-                    <div class="col-lg-2 form-floating mb-2">
-                        <input
-                                type="text"
-                                class="form-control"
-                                placeholder="First Name"
-                                aria-label="firstname"
-                                name="players[<?php echo $i; ?>][FirstName]"
-                                value="<?php echo $player['FirstName'] ?? ''; ?>"
-                                pattern=".{1,}"
-                                required
-                        />
-                        <label>First Name</label>
-                        <div class="valid-feedback">Looks good!</div>
-                        <div class="invalid-feedback">Please provide a first name.</div>
-                    </div>
+        for ($i = 0; $i <= 15; $i++) {
+            echo '<fieldset class="row gx-2 gy-2 input-group pb-2">';
+            echo '<div class="col-lg-3 col-md-6 col-sm-12 form-floating mb-2">';
+            echo '<input type="text" class="form-control" placeholder="Name" value="'.$players_data["name"].'" aria-label="name" name="players[' . $i . '][name]" pattern=".{1,}" required />';
+            echo '<label>Name</label>';
+            echo '<div class="valid-feedback">Looks good!</div>';
+            echo '<div class="invalid-feedback">Please provide a valid name.</div>';
+            echo '</div>';
 
-                    <!-- Last Name -->
-                    <div class="col-lg-2 form-floating mb-2">
-                        <input
-                                type="text"
-                                class="form-control"
-                                placeholder="Last Name"
-                                aria-label="lastname"
-                                name="players[<?php echo $i; ?>][LastName]"
-                                value="<?php echo $player['LastName'] ?? ''; ?>"
-                                pattern=".{1,}"
-                                required
-                        />
-                        <label>Last Name</label>
-                        <div class="valid-feedback">Looks good!</div>
-                        <div class="invalid-feedback">Please provide a last name.</div>
-                    </div>
+            echo '<div class="col-lg-3 col-md-6 col-sm-12 form-floating mb-2">';
+            echo '<input type="number" class="form-control" min="0" max="1200" placeholder="Rating" value="'.$players_data["rating"].'" aria-label="rating" name="players[' . $i . '][rating]" required />';
+            echo '<label>Rating</label>';
+            echo '<div class="valid-feedback">Looks good!</div>';
+            echo '<div class="invalid-feedback">Please provide a valid rating.</div>';
+            echo '</div>';
 
-                    <!-- PDGA Number -->
-                    <div class="col-lg-2 form-floating mb-2">
-                        <input
-                                type="number"
-                                class="form-control"
-                                placeholder="PDGA Number"
-                                aria-label="pdganumber"
-                                name="players[<?php echo $i; ?>][PDGA_Number]"
-                                value="<?php echo $player['PDGA_Number'] ?? ''; ?>"
-                                required
-                        />
-                        <label>PDGA Number</label>
-                        <div class="valid-feedback">Looks good!</div>
-                        <div class="invalid-feedback">Please provide a PDGA number.</div>
-                    </div>
+            echo '<div class="col-lg-3 col-md-6 col-sm-12 form-floating mb-2">';
+            echo '<input type="number" class="form-control" min="0" max="1000000" placeholder="PDGA Number" value="'.$players_data["pdganumber"].'" aria-label="pdganumber" name="players[' . $i . '][pdganumber]" />';
+            echo '<label>PDGA Number</label>';
+            echo '<div class="valid-feedback">Looks good!</div>';
+            echo '<div class="invalid-feedback">Please provide a valid PDGA number.</div>';
+            echo '</div>';
 
-                    <!-- Rank -->
-                    <div class="col-lg-2 form-floating mb-2">
-                        <input
-                                type="number"
-                                class="form-control"
-                                placeholder="Rank"
-                                aria-label="rank"
-                                name="players[<?php echo $i; ?>][Rank]"
-                                value="<?php echo $player['Rank'] ?? ''; ?>"
-                                required
-                        />
-                        <label>Rank</label>
-                        <div class="valid-feedback">Looks good!</div>
-                        <div class="invalid-feedback">Please provide a rank.</div>
-                    </div>
+            echo '<div class="col-lg-3 col-md-6 col-sm-12 form-floating mb-2">';
+            echo '<input type="email" class="form-control" placeholder="example@example.com" value="'.$players_data["email"].'" aria-label="email" name="players[' . $i . '][email]" pattern="[A-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$" required />';
+            echo '<label>Email address</label>';
+            echo '<div class="valid-feedback">Looks good!</div>';
+            echo '<div class="invalid-feedback">Please provide a valid email address.</div>';
+            echo '</div>';
 
-                    <!-- Tournament ID -->
-                    <div class="col-lg-2 form-floating mb-2">
-                        <input
-                                type="number"
-                                class="form-control"
-                                placeholder="Tournament ID"
-                                aria-label="tournamentid"
-                                name="players[<?php echo $i; ?>][Tournament_ID]"
-                                value="<?php echo $player['Tournament_ID'] ?? ''; ?>"
-                                required
-                        />
-                        <label>Tournament ID</label>
-                        <div class="valid-feedback">Looks good!</div>
-                        <div class="invalid-feedback">Please provide a tournament ID.</div>
-                    </div>
-
-                    <!-- Date -->
-                    <div class="col-lg-2 form-floating mb-2">
-                        <input
-                                type="date"
-                                class="form-control"
-                                placeholder="Date"
-                                aria-label="date"
-                                name="players[<?php echo $i; ?>][Date]"
-                                value="<?php echo $player['Date'] ?? ''; ?>"
-                                required
-                        />
-                        <label>Date</label>
-                        <div class="valid-feedback">Looks good!</div>
-                        <div class="invalid-feedback">Please provide a date.</div>
-                    </div>
-
-                    <?php
-                }
-                ?>
-            </fieldset>
-
-            <!--            <fieldset class="row gx-2 gy-2 input-group pb-2">-->
-<!--                 Name -->
-<!--                <div class="col-lg-3 col-md-6 col-sm-12 form-floating mb-2">-->
-<!--                    <input-->
-<!--                            type="text"-->
-<!--                            class="form-control"-->
-<!--                            placeholder="Name"-->
-<!--                            aria-label="name"-->
-<!--                            name="players[--><?php //echo $i; ?><!--][name]"-->
-<!--                            value="--><?php //echo $player['Name'] ?? ''; ?><!--"-->
-<!--                            pattern=".{1,}"-->
-<!--                            required-->
-<!--                    />-->
-<!--                    <label>Name</label>-->
-<!--                    <div class="valid-feedback">Looks good!</div>-->
-<!--                    <div class="invalid-feedback">Please provide a valid name.</div>-->
-<!--                </div>-->
-<!--                 Rating -->
-<!--                <div class="col-lg-3 col-md-6 col-sm-12 form-floating mb-2">-->
-<!--                    <input-->
-<!--                            type="number"-->
-<!--                            class="form-control"-->
-<!--                            min="0"-->
-<!--                            max="1200"-->
-<!--                            placeholder="Rating"-->
-<!--                            aria-label="rating"-->
-<!--                            name="players[--><?php //echo $i; ?><!--][rating]"-->
-<!--                            value="--><?php //echo $player['Rating'] ?? ''; ?><!--"-->
-<!--                            required-->
-<!--                    />-->
-<!--                    <label>Rating</label>-->
-<!--                    <div class="valid-feedback">Looks good!</div>-->
-<!--                    <div class="invalid-feedback">Please provide a valid rating.</div>-->
-<!--                </div>-->
-<!--                PDGA Number -->
-<!--                <div class="col-lg-3 col-md-6 col-sm-12 form-floating mb-2">-->
-<!--                    <input-->
-<!--                            type="number"-->
-<!--                            class="form-control"-->
-<!--                            min="0"-->
-<!--                            max="1000000"-->
-<!--                            placeholder="PDGA Number"-->
-<!--                            aria-label="pdganumber"-->
-<!--                            name="players[--><?php //echo $i; ?><!--][pdganumber]"-->
-<!--                            value="--><?php //echo $player['PDGANumber'] ?? ''; ?><!--"-->
-<!--                    />-->
-<!--                    <label>PDGA Number</label>-->
-<!--                    <div class="valid-feedback">Looks good!</div>-->
-<!--                    <div class="invalid-feedback">-->
-<!--                        Please provide a valid PDGA number.-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                Email -->
-<!--                <div class="col-lg-3 col-md-6 col-sm-12 form-floating mb-2">-->
-<!--                    <input-->
-<!--                            type="email"-->
-<!--                            class="form-control"-->
-<!--                            placeholder="example@example.com"-->
-<!--                            aria-label="email"-->
-<!--                            name="players[--><?php //echo $i; ?><!--][email]"-->
-<!--                            value="--><?php //echo $player['Email'] ?? ''; ?><!--"-->
-<!--                            pattern="[A-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"-->
-<!--                            required-->
-<!--                    />-->
-<!--                    <label>Email address</label>-->
-<!--                    <div class="valid-feedback">Looks good!</div>-->
-<!--                    <div class="invalid-feedback">-->
-<!--                        Please provide a valid email address.-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </fieldset>-->
-            <?php
+            echo '</fieldset>';
         }
         ?>
+
 
         <!-- Submit button -->
         <div class="row mt-3">
@@ -351,17 +198,17 @@ require_once '../includes/admin_check.php';
             console.log(`Populating form for player ${i + 1}`);
             console.log(data[i]);
 
-            document.querySelector(`input[name="players[${i}][FirstName]"]`).value = player.FirstName || '';
-            document.querySelector(`input[name="players[${i}][LastName]"]`).value = player.LastName || '';
-            document.querySelector(`input[name="players[${i}][PDGA_Number]"]`).value = player.PDGA_Number || '';
-            document.querySelector(`input[name="players[${i}][Rank]"]`).value = player.Rank || '';
-            document.querySelector(`input[name="players[${i}][Tournament_ID]"]`).value = player.Tournament_ID || '';
+            document.querySelector(`input[name="players[${i}][name]"]`).value = player.name || '';
+            // document.querySelector(`input[name="players[${i}][LastName]"]`).value = player.LastName || '';
+            document.querySelector(`input[name="players[${i}][rating]"]`).value = player.rating || '';
+            document.querySelector(`input[name="players[${i}][pdganumber]"]`).value = player.pdganumber || '';
+            document.querySelector(`input[name="players[${i}][email]"]`).value = player.email || '';
             // Check if date exists and format it before assigning
-            if(player.Date) {
-                document.querySelector(`input[name="players[${i}][Date]"]`).value = formatDate(player.Date);
-            } else {
-                document.querySelector(`input[name="players[${i}][Date]"]`).value = '';
-            }
+            // if(player.Date) {
+            //     document.querySelector(`input[name="players[${i}][Date]"]`).value = formatDate(player.Date);
+            // } else {
+            //     document.querySelector(`input[name="players[${i}][Date]"]`).value = '';
+            // }
         }
     }
 </script>

@@ -3,6 +3,7 @@
 include_once '../includes/session.php';
 // Checks to see if there is an active admin session
 require_once '../includes/admin_check.php';
+var_dump($_POST);
 ?>
 <!DOCTYPE html>
 <html lang="en">
