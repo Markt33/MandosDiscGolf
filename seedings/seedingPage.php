@@ -62,7 +62,8 @@ require_once '../includes/admin_check.php';
     <div class="container mb-4">
         <label for="playersFile">Upload Excel File</label>
         <input type="file" class="form-control-file" id="playersFile" name="playersFile" accept=".xlsx" required>
-        <button type="button" class="btn btn-outline-dark" id="importBtn">Import</button>
+        <br>
+        <button type="button" class="btn btn-danger" id="importBtn">Import</button>
     </div>
 
 
