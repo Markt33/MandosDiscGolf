@@ -238,5 +238,3 @@ input[type='radio']:not(:checked):disabled::before {
 .container {
   padding-top: 25px;
 }
-
-
