@@ -31,7 +31,7 @@ error_reporting(E_ALL);
 <body class="d-flex flex-column">
 <header class="bg-dark">
     <div class="d-flex flex-column flex-sm-row align-items-center">
-        <div>    <a class="navbar-brand" href="index.php"><img src="assets/mandos.gif" id="logo" alt="mandos.gif"></a>
+        <div>    <a class="navbar-brand" href="index.php"><img src="assets/mandos_redesign_3.webp" id="logo" alt="mandos_redesign_3.webp"></a>
         </div>
 
         <div>
