@@ -71,6 +71,13 @@ require_once '../includes/admin_check.php';
 
     </br>
     </br>
+
+    <div class="container mb-4">
+        <button type="button" class="btn btn-danger" onclick="generateFields(16)">16</button>
+        <button type="button" class="btn btn-danger" onclick="generateFields(32)">32</button>
+        <button type="button" class="btn btn-danger" onclick="generateFields(64)">64</button>
+    </div>
+
     <!-- Seeding Form -->
     <form
             class="container needs-validation"
@@ -79,42 +86,9 @@ require_once '../includes/admin_check.php';
             action="ranking.php"
             novalidate
     >
-        <!--Player 0-->
-        <?php
-        $players_data = $_SESSION['players_data'] ?? [];
-        for ($i = 0; $i <= 15; $i++) {
-            echo '<fieldset class="row gx-2 gy-2 input-group pb-2">';
-            echo '<div class="col-lg-3 col-md-6 col-sm-12 form-floating mb-2">';
-            echo '<input type="text" class="form-control" placeholder="Name" value="'.$players_data["name"].'" aria-label="name" name="players[' . $i . '][name]" pattern=".{1,}" required />';
-            echo '<label>Name</label>';
-            echo '<div class="valid-feedback">Looks good!</div>';
-            echo '<div class="invalid-feedback">Please provide a valid name.</div>';
-            echo '</div>';
 
-            echo '<div class="col-lg-3 col-md-6 col-sm-12 form-floating mb-2">';
-            echo '<input type="number" class="form-control" min="0" max="1200" placeholder="Rating" value="'.$players_data["rating"].'" aria-label="rating" name="players[' . $i . '][rating]" required />';
-            echo '<label>Rating</label>';
-            echo '<div class="valid-feedback">Looks good!</div>';
-            echo '<div class="invalid-feedback">Please provide a valid rating.</div>';
-            echo '</div>';
-
-            echo '<div class="col-lg-3 col-md-6 col-sm-12 form-floating mb-2">';
-            echo '<input type="number" class="form-control" min="0" max="1000000" placeholder="PDGA Number" value="'.$players_data["pdganumber"].'" aria-label="pdganumber" name="players[' . $i . '][pdganumber]" />';
-            echo '<label>PDGA Number</label>';
-            echo '<div class="valid-feedback">Looks good!</div>';
-            echo '<div class="invalid-feedback">Please provide a valid PDGA number.</div>';
-            echo '</div>';
-
-            echo '<div class="col-lg-3 col-md-6 col-sm-12 form-floating mb-2">';
-            echo '<input type="email" class="form-control" placeholder="example@example.com" value="'.$players_data["email"].'" aria-label="email" name="players[' . $i . '][email]" pattern="[A-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$" required />';
-            echo '<label>Email address</label>';
-            echo '<div class="valid-feedback">Looks good!</div>';
-            echo '<div class="invalid-feedback">Please provide a valid email address.</div>';
-            echo '</div>';
-
-            echo '</fieldset>';
-        }
-        ?>
+        <!-- Placeholder for Dynamic Player Fields -->
+        <div id="dynamic-fieldset"></div>
 
 
         <!-- Submit button -->
@@ -192,8 +166,10 @@ require_once '../includes/admin_check.php';
     }
 
     function populateForm(data) {
-        // Fixed 16 player tournament
-        const dataLength = Math.min(data.length, 16);
+        const dataLength = data.length;
+
+        // Generate fields first based on dataLength
+        generateFields(dataLength);
 
         for (let i = 0; i < dataLength; i++) {
             let player = data[i];
@@ -213,6 +189,65 @@ require_once '../includes/admin_check.php';
             // }
         }
     }
+
+    function generateFields(num) {
+        // const formContainer = document.querySelector('.container.needs-validation');
+        // formContainer.innerHTML = '';  // Clear current form fields
+        const formContainer = document.querySelector('#dynamic-fieldset');
+        formContainer.innerHTML = '';  // Clear current player fields only
+
+        for (let i = 0; i < num; i++) {
+            // Create fieldset for grouping
+            let fieldset = document.createElement('fieldset');
+            fieldset.className = "row gx-2 gy-2 input-group pb-2";
+
+            // Create fields: Name, Rating, PDGA Number, Email
+            const fields = [
+                { label: "Name", type: "text", max: null, placeholder: "Name", name: "name", pattern: ".{1,}", feedback: "Please provide a valid name." },
+                { label: "Rating", type: "number", max: 1200, placeholder: "Rating", name: "rating", pattern: null, feedback: "Please provide a valid rating." },
+                { label: "PDGA Number", type: "number", max: 1000000, placeholder: "PDGA Number", name: "pdganumber", pattern: null, feedback: "Please provide a valid PDGA number." },
+                { label: "Email address", type: "email", max: null, placeholder: "example@example.com", name: "email", pattern: "[A-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$", feedback: "Please provide a valid email address." }
+            ];
+
+            fields.forEach(field => {
+                let div = document.createElement('div');
+                div.className = "col-lg-3 col-md-6 col-sm-12 form-floating mb-2";
+
+                let input = document.createElement('input');
+                input.type = field.type;
+                if (field.max) input.setAttribute('max', field.max);
+                if (field.pattern) input.setAttribute('pattern', field.pattern);
+                input.className = 'form-control';
+                input.placeholder = field.placeholder;
+                input.setAttribute('aria-label', field.name);
+                input.name = `players[${i}][${field.name}]`;
+                input.required = true;
+
+                let label = document.createElement('label');
+                label.innerText = field.label;
+
+                let validFeedback = document.createElement('div');
+                validFeedback.className = "valid-feedback";
+                validFeedback.innerText = "Looks good!";
+
+                let invalidFeedback = document.createElement('div');
+                invalidFeedback.className = "invalid-feedback";
+                invalidFeedback.innerText = field.feedback;
+
+                div.appendChild(input);
+                div.appendChild(label);
+                div.appendChild(validFeedback);
+                div.appendChild(invalidFeedback);
+
+                fieldset.appendChild(div);
+            });
+
+            // Append fieldset to the container
+            formContainer.appendChild(fieldset);
+        }
+    }
+
+
 </script>
 <!-- JavaScript-->
 <script src="../scripts/script.js"></script>
@@ -228,4 +263,45 @@ require_once '../includes/admin_check.php';
     crossorigin="anonymous"
 ></script>
 
+<!--Player 0-->
+<!--        --><?php
+//        $players_data = $_SESSION['players_data'] ?? [];
+//        for ($i = 0; $i <= 15; $i++) {
+//            echo '<fieldset class="row gx-2 gy-2 input-group pb-2">';
+//            echo '<div class="col-lg-3 col-md-6 col-sm-12 form-floating mb-2">';
+//            echo '<input type="text" class="form-control" placeholder="Name" value="'.$players_data["name"].'" aria-label="name" name="players[' . $i . '][name]" pattern=".{1,}" required />';
+//            echo '<label>Name</label>';
+//            echo '<div class="valid-feedback">Looks good!</div>';
+//            echo '<div class="invalid-feedback">Please provide a valid name.</div>';
+//            echo '</div>';
+//
+//            echo '<div class="col-lg-3 col-md-6 col-sm-12 form-floating mb-2">';
+//            echo '<input type="number" class="form-control" min="0" max="1200" placeholder="Rating" value="'.$players_data["rating"].'" aria-label="rating" name="players[' . $i . '][rating]" required />';
+//            echo '<label>Rating</label>';
+//            echo '<div class="valid-feedback">Looks good!</div>';
+//            echo '<div class="invalid-feedback">Please provide a valid rating.</div>';
+//            echo '</div>';
+//
+//            echo '<div class="col-lg-3 col-md-6 col-sm-12 form-floating mb-2">';
+//            echo '<input type="number" class="form-control" min="0" max="1000000" placeholder="PDGA Number" value="'.$players_data["pdganumber"].'" aria-label="pdganumber" name="players[' . $i . '][pdganumber]" />';
+//            echo '<label>PDGA Number</label>';
+//            echo '<div class="valid-feedback">Looks good!</div>';
+//            echo '<div class="invalid-feedback">Please provide a valid PDGA number.</div>';
+//            echo '</div>';
+//
+//            echo '<div class="col-lg-3 col-md-6 col-sm-12 form-floating mb-2">';
+//            echo '<input type="email" class="form-control" placeholder="example@example.com" value="'.$players_data["email"].'" aria-label="email" name="players[' . $i . '][email]" pattern="[A-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$" required />';
+//            echo '<label>Email address</label>';
+//            echo '<div class="valid-feedback">Looks good!</div>';
+//            echo '<div class="invalid-feedback">Please provide a valid email address.</div>';
+//            echo '</div>';
+//
+//            echo '</fieldset>';
+//        }
+//        ?>
+
 </html>
+
+
+
+
