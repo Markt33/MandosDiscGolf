@@ -172,17 +172,23 @@
     }
 
     // send the same email for 2 players
-    function sendEmail($title, $name1, $name2, $rating1, $rating2, $email1, $email2, $matchupToken) {
+    function sendEmail($title, $name1, $name2, $rating1, $rating2, $email1, $email2, $playerID1, $playerID2) {
 
             $header = 'From: The Pentagon Dev Team <@outlook.com>\r\n';
             $header .= 'Reply-To: pentagongrc@outlook.com\r\n';
             $header .= "MIME-Version: 1.0" . "\r\n";
             $header .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-                $to = $email1.','. $email2;
-                $message = '<h3>Hi there!</h3><p>You are receiving this email because someone has signed you up for the upcoming Disc Golf Competition, '. $title. ', ' . $name1 . ' with ' . $rating1  .' rating number will be competing against '.  $name2 .' with '. $rating2 . ' rating number .</p>, <p>Click here to report the score . <a href="http://tloudon.greenriverdev.com.greenriverdev.com/MandosDiscGolf/brackets/setScores.php?matchup='.$matchupToken.'">Set Score</a></p>';
+                $to = $email1;
+                $message = '<h3>Hi there!</h3><p>You are receiving this email because someone has signed you up for the upcoming Disc Golf Competition, '. $title. ', ' . $name1 . ' with ' . $rating1  .' rating number will be competing against '.  $name2 .' with '. $rating2 . ' rating number .</p>, <p>Click here to report the score . <a href="https://nathanwaters.greenriverdev.com/355/MandosDiscGolf/functions/receivetoken.php?token='.$playerID1.'">Cancel!</a></p>';
+                mail($to,$title, $message, $header);
+
+                $to = $email2;
+                $message = '<h3>Hi there!</h3><p>You are receiving this email because someone has signed you up for the upcoming Disc Golf Competition, '. $title. ', ' . $name1 . ' with ' . $rating1  .' rating number will be competing against '.  $name2 .' with '. $rating2 . ' rating number .</p>, <p>Click here to report the score . <a href="https://nathanwaters.greenriverdev.com/355/MandosDiscGolf/functions/receivetoken.php?token='.$playerID2.'">Cancel!</a></p>';
                 mail($to,$title, $message, $header);
     }
+
+
 
     // get title value for a tournament
     function getTitle($tournament_id) {

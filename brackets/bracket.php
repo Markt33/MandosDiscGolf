@@ -249,10 +249,10 @@ if (!isset($_POST['tournament_id']) && isset($_POST['title']) && (($size == 16) 
             $player1Id = getPlayerId($name1);
             $player2Id = getPlayerId($name2);
             $matchupToken = getMatchupId($player1Id,$player2Id); //TODO add function to get playerid by name
-            echo '<h1>' . $matchupToken . '</h1>';
+//            echo '<h1>' . $matchupToken . '</h1>';
 //            $matchupToken = 1373;
 
-            sendEmail($title, $name1, $name2, $rating1, $rating2, $email1, $email2, $matchupToken);
+            sendEmail($title, $name1, $name2, $rating1, $rating2, $email1, $email2, $player1Id, $player2Id);
 
         }
     }
