@@ -252,7 +252,17 @@ if (!isset($_POST['tournament_id']) && isset($_POST['title']) && (($size == 16) 
 //            echo '<h1>' . $matchupToken . '</h1>';
 //            $matchupToken = 1373;
 
-            sendEmail($title, $name1, $name2, $rating1, $rating2, $email1, $email2, $player1Id, $player2Id);
+            $sql = "SELECT get_email FROM player WHERE player_id = '$player1Id'";
+            $result = @mysqli_query($cnxn, $sql);
+            $player1GetEmail = @mysqli_fetch_assoc($result);
+            //var_dump($player1GetEmail);
+
+            $sql = "SELECT get_email FROM player WHERE player_id = '$player2Id'";
+            $result = @mysqli_query($cnxn, $sql);
+            $player2GetEmail = @mysqli_fetch_assoc($result);
+            //var_dump($player2GetEmail);
+
+            sendEmail($title, $name1, $name2, $rating1, $rating2, $email1, $email2, $player1Id, $player2Id, $player1GetEmail, $player2GetEmail);
 
         }
     }
@@ -438,7 +448,18 @@ if (!is_null($_POST['players2'])) {
 //            $matchupToken = 1373;
 
 
-            sendEmail($title, $name1, $name2, $rating1, $rating2, $email1, $email2, $matchupToken);
+            $sql = "SELECT get_email FROM player WHERE player_id = '$player1Id'";
+            $result = @mysqli_query($cnxn, $sql);
+            $player1GetEmail = @mysqli_fetch_assoc($result);
+            //var_dump($player1GetEmail);
+
+            $sql = "SELECT get_email FROM player WHERE player_id = '$player2Id'";
+            $result = @mysqli_query($cnxn, $sql);
+            $player2GetEmail = @mysqli_fetch_assoc($result);
+            //var_dump($player2GetEmail);
+
+            sendEmail($title, $name1, $name2, $rating1, $rating2, $email1, $email2, $player1Id, $player2Id, $player1GetEmail, $player2GetEmail);
+
 
         }
     }
@@ -516,7 +537,17 @@ if (!is_null($_POST['players3'])) {
 //            $matchupToken = 1373;
 
 
-            sendEmail($title, $name1, $name2, $rating1, $rating2, $email1, $email2, $matchupToken);
+            $sql = "SELECT get_email FROM player WHERE player_id = '$player1Id'";
+            $result = @mysqli_query($cnxn, $sql);
+            $player1GetEmail = @mysqli_fetch_assoc($result);
+            //var_dump($player1GetEmail);
+
+            $sql = "SELECT get_email FROM player WHERE player_id = '$player2Id'";
+            $result = @mysqli_query($cnxn, $sql);
+            $player2GetEmail = @mysqli_fetch_assoc($result);
+            //var_dump($player2GetEmail);
+
+            sendEmail($title, $name1, $name2, $rating1, $rating2, $email1, $email2, $player1Id, $player2Id, $player1GetEmail, $player2GetEmail);
 
         }
     }
@@ -596,7 +627,17 @@ if (!is_null($_POST['players4'])) {
 //            $matchupToken = 1373;
 
 
-            sendEmail($title, $name1, $name2, $rating1, $rating2, $email1, $email2, $matchupToken);
+            $sql = "SELECT get_email FROM player WHERE player_id = '$player1Id'";
+            $result = @mysqli_query($cnxn, $sql);
+            $player1GetEmail = @mysqli_fetch_assoc($result);
+            //var_dump($player1GetEmail);
+
+            $sql = "SELECT get_email FROM player WHERE player_id = '$player2Id'";
+            $result = @mysqli_query($cnxn, $sql);
+            $player2GetEmail = @mysqli_fetch_assoc($result);
+            //var_dump($player2GetEmail);
+
+            sendEmail($title, $name1, $name2, $rating1, $rating2, $email1, $email2, $player1Id, $player2Id, $player1GetEmail, $player2GetEmail);
 
         }
     }
@@ -675,7 +716,17 @@ if (!is_null($_POST['players5'])) {
 //            $matchupToken = 1373;
 
 
-            sendEmail($title, $name1, $name2, $rating1, $rating2, $email1, $email2, $matchupToken);
+            $sql = "SELECT get_email FROM player WHERE player_id = '$player1Id'";
+            $result = @mysqli_query($cnxn, $sql);
+            $player1GetEmail = @mysqli_fetch_assoc($result);
+            //var_dump($player1GetEmail);
+
+            $sql = "SELECT get_email FROM player WHERE player_id = '$player2Id'";
+            $result = @mysqli_query($cnxn, $sql);
+            $player2GetEmail = @mysqli_fetch_assoc($result);
+            //var_dump($player2GetEmail);
+
+            sendEmail($title, $name1, $name2, $rating1, $rating2, $email1, $email2, $player1Id, $player2Id, $player1GetEmail, $player2GetEmail);
 
         }
     }
@@ -755,7 +806,17 @@ if (!is_null($_POST['players6'])) {
 //            $matchupToken = 1373;
 
 
-            sendEmail($title, $name1, $name2, $rating1, $rating2, $email1, $email2, $matchupToken);
+            $sql = "SELECT get_email FROM player WHERE player_id = '$player1Id'";
+            $result = @mysqli_query($cnxn, $sql);
+            $player1GetEmail = @mysqli_fetch_assoc($result);
+            //var_dump($player1GetEmail);
+
+            $sql = "SELECT get_email FROM player WHERE player_id = '$player2Id'";
+            $result = @mysqli_query($cnxn, $sql);
+            $player2GetEmail = @mysqli_fetch_assoc($result);
+            //var_dump($player2GetEmail);
+
+            sendEmail($title, $name1, $name2, $rating1, $rating2, $email1, $email2, $player1Id, $player2Id, $player1GetEmail, $player2GetEmail);
 
         }
     }

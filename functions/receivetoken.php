@@ -8,6 +8,7 @@
             $sql = "UPDATE `player` SET get_email = 0 WHERE `player_id` = '$playerID'";
 
             $result = @mysqli_query($cnxn, $sql);
+            var_dump($result);
          ?>
     </body>
 </html>

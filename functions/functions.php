@@ -172,20 +172,37 @@
     }
 
     // send the same email for 2 players
-    function sendEmail($title, $name1, $name2, $rating1, $rating2, $email1, $email2, $playerID1, $playerID2) {
+    function sendEmail($title, $name1, $name2, $rating1, $rating2, $email1, $email2, $playerID1, $playerID2, $player1GetEmail, $player2GetEmail) {
 
             $header = 'From: The Pentagon Dev Team <@outlook.com>\r\n';
             $header .= 'Reply-To: pentagongrc@outlook.com\r\n';
             $header .= "MIME-Version: 1.0" . "\r\n";
             $header .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-                $to = $email1;
-                $message = '<h3>Hi there!</h3><p>You are receiving this email because someone has signed you up for the upcoming Disc Golf Competition, '. $title. ', ' . $name1 . ' with ' . $rating1  .' rating number will be competing against '.  $name2 .' with '. $rating2 . ' rating number .</p>, <p>Click here to report the score . <a href="https://nathanwaters.greenriverdev.com/355/MandosDiscGolf/functions/receivetoken.php?token='.$playerID1.'">Cancel!</a></p>';
-                mail($to,$title, $message, $header);
+            /*
+        $sql = "SELECT get_email FROM player WHERE player_id = '$playerID1'";
+        $result = @mysqli_query($cnxn, $sql);
+        var_dump(@mysqli_fetch_assoc($result));
+        while($row = @mysqli_fetch_assoc($result)){
+            $get_email = $row['get_email'];
+            echo $get_email;
+            }
+            */
 
-                $to = $email2;
-                $message = '<h3>Hi there!</h3><p>You are receiving this email because someone has signed you up for the upcoming Disc Golf Competition, '. $title. ', ' . $name1 . ' with ' . $rating1  .' rating number will be competing against '.  $name2 .' with '. $rating2 . ' rating number .</p>, <p>Click here to report the score . <a href="https://nathanwaters.greenriverdev.com/355/MandosDiscGolf/functions/receivetoken.php?token='.$playerID2.'">Cancel!</a></p>';
-                mail($to,$title, $message, $header);
+                //var_dump($player1GetEmail['get_email']);
+                //var_dump($player2GetEmail);
+
+                if ($player1GetEmail['get_email'] == "1") {
+                    $to = $email1;
+                    $message = '<h3>Hi there!</h3><p>You are receiving this email because someone has signed you up for the upcoming Disc Golf Competition, ' . $title . ', ' . $name1 . ' with ' . $rating1 . ' rating number will be competing against ' . $name2 . ' with ' . $rating2 . ' rating number .</p>, <p>Click here to report the score . <a href="https://tsvyanm.greenriverdev.com/355/MandosDiscGolf/functions/receivetoken.php?token=' . $playerID1 . '">Cancel!</a></p>';
+                    mail($to, $title, $message, $header);
+                }
+
+                if ($player2GetEmail['get_email'] == "1") {
+                    $to = $email2;
+                    $message = '<h3>Hi there!</h3><p>You are receiving this email because someone has signed you up for the upcoming Disc Golf Competition, ' . $title . ', ' . $name1 . ' with ' . $rating1 . ' rating number will be competing against ' . $name2 . ' with ' . $rating2 . ' rating number .</p>, <p>Click here to report the score . <a href="https://tsvyanm.greenriverdev.com/355/MandosDiscGolf/functions/receivetoken.php?token=' . $playerID2 . '">Cancel!</a></p>';
+                    mail($to, $title, $message, $header);
+                }
     }
 
 
