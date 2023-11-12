@@ -180,10 +180,10 @@
             $header .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
             /*
-        $sql = "SELECT get_email FROM player WHERE player_id = '$playerID1'";
-        $result = @mysqli_query($cnxn, $sql);
-        var_dump(@mysqli_fetch_assoc($result));
-        while($row = @mysqli_fetch_assoc($result)){
+            $sql = "SELECT get_email FROM player WHERE player_id = '$playerID1'";
+            $result = @mysqli_query($cnxn, $sql);
+            var_dump(@mysqli_fetch_assoc($result));
+            while($row = @mysqli_fetch_assoc($result)){
             $get_email = $row['get_email'];
             echo $get_email;
             }
