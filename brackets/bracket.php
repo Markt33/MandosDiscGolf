@@ -2,15 +2,21 @@
 
 // Enables admin/visitor session to be used with this page 
 
+global $myVariable, $myVariable;
 include_once '../includes/session.php';
 
 // call functions
 
 require '../functions/functions.php';
 
+
 $tournament_id = 0;
 
 $size = count($_POST['players']);
+
+//if (isset($_POST['action']) && $_POST['action'] == 'buttonUndo') {
+//    buttonUndo($tournament_id, $max_round);
+//}
 
 
 //check if it is the creation or the update process
@@ -45,6 +51,8 @@ if (!isset($_POST['tournament_id']) && isset($_POST['title']) && (($size == 16) 
     $groupArray = array();
 
     $sortedPlayers = array();
+
+
 
 
     function sortArray()
@@ -315,6 +323,11 @@ $m_info4 = array();
 $m_info5 = array();
 $m_info6 = array();
 
+//if (isset($_POST['action']) && $_POST['action'] == 'buttonUndo') {
+//    echo "$tournament_id";
+////    echo "$max_round";
+//    buttonUndo($tournament_id, getMaxRound($tournament_id));
+//}
 
 if ($max_round == 1) {
 
@@ -882,7 +895,145 @@ if ($winner_id != 0) {
 }
 
 
+
+$newVariableValue = $_POST['newVariableValue'];
+
+// Set the global variable in the session
+$_SESSION['myVariable'] = $newVariableValue;
+
+// Echo the updated variable value (you can customize this response)
+echo $newVariableValue;
+
+
+
+if(isset($newVariableValue)){
+//    $counter--;
+    require $_SERVER['DOCUMENT_ROOT'].'/../db.php';
+
+    $sql = "DELETE FROM matchup WHERE `tournament_id` = '$tournament_id' AND `round` = '$max_round'";
+    $result = @mysqli_query($cnxn, $sql);
+}
+//echo $tournament_id;
+//echo $max_round;
+if (isset($_POST['action']) && $_POST['action'] == 'buttonUndo') {
+//    echo "$tournament_id";
+//    echo "$max_round";
+
+
+
+//    echo "DELETE FROM matchup WHERE `tournament_id` = $tournament_id AND `round` = $max_round";
+    buttonUndo($tournament_id, getMaxRound($tournament_id));
+}
+//$_SESSION['deleteButtonExecuted'] = true;
+echo $_POST['deleteButton'];
+var_dump($_POST['deleteButton']);
+if (isset($_POST['deleteButton']) && $_POST['deleteButton']=="1") {
+    echo "things are happening!";
+    // Assuming you have a table named 'your_table' and a unique identifier 'id'
+    $idToDelete = $_POST['idToDelete'];
+    echo $idToDelete;
+    require $_SERVER['DOCUMENT_ROOT'].'/../db.php';
+    // SQL query to delete data
+    $sql = "DELETE FROM matchup WHERE `tournament_id` = '$tournament_id' AND `round` = '$max_round'";
+    $result = @mysqli_query($cnxn, $sql);
+    $_POST['deleteButton'] = "2";
+//    $_SESSION['deleteButtonExecuted'] = false;
+    unset($_POST['deleteButton']);
+
+}
+echo $_SESSION['deleteButtonExecuted'];
+/*echo "Before unset: " . $_POST['deleteButton'] . "<br>";
+
+// Check if the 'deleteButton' is set and has a specific value
+if (isset($_POST['deleteButton']) && $_POST['deleteButton'] == "1") {
+    echo "Things are happening!<br>";
+
+    // Assuming you have a table named 'your_table' and a unique identifier 'id'
+    $idToDelete = $_POST['idToDelete'];
+    require $_SERVER['DOCUMENT_ROOT'].'/../db.php';
+
+    // SQL query to delete data
+    $sql = "DELETE FROM matchup WHERE `tournament_id` = '$tournament_id' AND `round` = '$max_round'";
+    $result = @mysqli_query($cnxn, $sql);
+
+    // Unset the 'deleteButton' variable
+    unset($_POST['deleteButton']);
+}
+
+echo "After unset: " . $_POST['deleteButton'] . "<br>";
+unset($_POST['deleteButton']);*/
+
+
+//if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['deleteButton']) && !isset($_SESSION['deleteButtonExecuted'])) {
+//    echo "Things are happening!<br>";
+//
+//    // Assuming you have a table named 'your_table' and a unique identifier 'id'
+//    $idToDelete = $_POST['idToDelete'];
+//
+//    // Validate and sanitize the input (replace with your validation logic)
+//    $idToDelete = filter_var($idToDelete, FILTER_VALIDATE_INT);
+//
+//    if ($idToDelete !== false) {
+//        // Include your database connection file
+//        require $_SERVER['DOCUMENT_ROOT'] . '/../db.php';
+//
+//        // SQL query to delete data
+//        $sql = "DELETE FROM matchup WHERE `tournament_id` = '$tournament_id' AND `round` = '$max_round'";
+//        $result = mysqli_query($cnxn, $sql);
+//
+//        // Check for errors
+//        if ($result) {
+//            echo "Record deleted successfully";
+//        } else {
+//            echo "Error deleting record: " . mysqli_error($cnxn);
+//        }
+//    } else {
+//        echo "Invalid ID provided.";
+//    }
+//
+//    // Set the flag to indicate that the code has run
+//    $_SESSION['deleteButtonExecuted'] = true;
+//}
+
+//if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['deleteButton']) && !isset($_SESSION['deleteButtonExecuted'])) {
+//    echo "Things are happening!<br>";
+//
+//    // Assuming you have a table named 'your_table' and a unique identifier 'id'
+//    $idToDelete = $_POST['idToDelete'];
+//
+//    // Validate and sanitize the input (replace with your validation logic)
+//    $idToDelete = filter_var($idToDelete, FILTER_VALIDATE_INT);
+//
+//    if ($idToDelete !== false) {
+//        // Include your database connection file
+//        require $_SERVER['DOCUMENT_ROOT'] . '/../db.php';
+//
+//        // SQL query to delete data
+//        $sql = "DELETE FROM matchup WHERE `tournament_id` = '$tournament_id' AND `round` = '$max_round'";
+//        $result = mysqli_query($cnxn, $sql);
+//
+//        // Check for errors
+//        if ($result) {
+//            echo "Record deleted successfully";
+//
+//            // Reset the session variable to allow the button to be used again
+//            unset($_SESSION['deleteButtonExecuted']);
+//        } else {
+//            echo "Error deleting record: " . mysqli_error($cnxn);
+//        }
+//    } else {
+//        echo "Invalid ID provided.";
+//    }
+//}
+
+
 ?>
+
+<!--<form method="post">-->
+<!--    <label for="idToDelete">Enter ID to Delete:</label>-->
+<!--    <input type="text" name="idToDelete" id="idToDelete" required>-->
+<!--    <button type="submit" name="deleteButton">Delete Record</button>-->
+<!--</form>-->
 
 
 <!DOCTYPE html>
@@ -896,6 +1047,7 @@ if ($winner_id != 0) {
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
 
     <link rel="stylesheet" href="../styles/style.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <?php
 
@@ -4570,17 +4722,74 @@ if ($size == 16) {
                 }
 
 
+//                $_POST = json_decode(file_get_contents('php://input'), true);
+
+//                if (isset($_POST['action']) && $_POST['action'] == 'buttonUndo') {
+//                    buttonUndo();
+//                }
+
+//                if (isset($_POST['action']) && $_POST['action'] == 'buttonUndo') {
+//                    buttonUndo();
+//                }
+
+//                if (isset($_POST['button_clicked'])) {
+//                    buttonUndo($tournament_id, $max_round);
+//                }
+//                function undoButton($tournament_id, $max_round){
+////                    require $_SERVER['DOCUMENT_ROOT'].'/../db.php';
+////
+////                    $sql = "CALL sp_undo('.$tournament_id.','.$max_round.')";
+////
+////                    $result = @mysqli_query($cnxn, $sql);
+////
+//                    echo 'function executed';
+//                }
+
+//                if (isset($_POST['action']) && $_POST['action'] == 'buttonUndo') {
+//                    echo "$tournament_id";
+////    echo "$max_round";
+//                    buttonUndo($tournament_id, getMaxRound($tournament_id));
+//                }
+
+
                 if (isset($_SESSION['username'])) {
 
                     if ($winner_id == 0) {
 
+//                        echo '<button type="button" class="btn btn-outline-dark m-5" id="buttonUndo">Undo things round</button>';
                         echo '<button type="submit" value="Submit" onclick="formValidation()" class="btn btn-outline-dark m-5" id="button">Go To Next Round</button>';
+//                        echo '<button type="submit" value="Submit" onclick="formValidation()" class="btn btn-outline-dark m-5" id="button">Go To Next Round</button>';
+//                        echo '<button type="button" onclick="changeVariable()">Change Variable</button>';
+
                     }
                 }
 
+                $newVariableValue = $_POST['newVariableValue'];
 
+                // Update the PHP variable
+                $myVariable = $newVariableValue;
+
+                // Echo the updated variable value (you can customize this response)
+                echo $myVariable;
                 ?>
 
+
+            </form>
+            <?php
+//            $myVariable = 0;
+
+
+            // Check if the form is submitted
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                // Update the PHP variable with the new value from the form
+                $counter = $_POST["newVariableValue"];
+
+            }
+            ?>
+            <form method="post">
+                <label for="idToDelete">Enter 1 to Delete round:</label>
+                <input type="text" name="idToDelete" id="idToDelete" required>
+                <button type="submit" name="deleteButton" value="1" onclick="refreshPage()">Delete Record</button>
             </form>
 
 </article>
@@ -4652,7 +4861,53 @@ if ($size == 16) {
 
 <script src="../scripts/script.js"></script>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <!--Bootstrap 5 JavaScript plugins and Popper.-->
+
+<script>
+    function refreshPage() {
+        // Use JavaScript to reload or refresh the page
+        location.reload();
+    }
+</script>
+
+
+<script>
+    function changeVariable() {
+        // Make an AJAX request to a PHP script that changes the variable
+        $.ajax({
+            type: "POST",
+            url: "bracket.php", // Replace with the actual PHP script URL
+            data: {
+                newVariableValue: true // You can send data to the server if needed
+            },
+            success: function(response) {
+                // Update the page with the new PHP variable value
+                $('p').html('PHP Variable: ' + response);
+            }
+        });
+    }
+</script>
+
+<script>
+    document.getElementById("buttonUndo").addEventListener("click", function() {
+        console.log("button.click");
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4) {
+                console.log("AJAX Request State: " + this.readyState);
+                console.log("HTTP Status Code: " + this.status);
+                console.log("Response Text: " + this.responseText);
+            }
+        };
+        xhttp.open("POST", "bracket.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("action=buttonUndo");
+
+        console.log("AJAX request sent to functions/functions.php with action=buttonUndo");
+    });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
@@ -4663,6 +4918,19 @@ if ($size == 16) {
         crossorigin="anonymous"></script>
 
 <script>
+    // document.getElementById("buttonUndo").addEventListener("click", function() {
+    //     let xhttp = new XMLHttpRequest();
+    //     xhttp.onreadystatechange = function() {
+    //         if (this.readyState == 4 && this.status == 200) {
+    //             // Handle response here (this.responseText)
+    //             console.log(this.responseText);
+    //         }
+    //     };
+    //     xhttp.open("POST", "../functions/functions.php", true);
+    //     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    //     xhttp.send("action=undoRound");
+    // });
+
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
 
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {

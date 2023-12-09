@@ -4,7 +4,21 @@
 
 
 
+//
+//if (isset($_POST['action']) && $_POST['action'] == 'undoButton') {
+//    undoButton($tournament_id, $max_round);
+//}
+    function buttonUndo($tournament_id, $max_round){
+//        echo "things";
+//        echo "$tournament_id";
+//        echo "$max_round";
+        require $_SERVER['DOCUMENT_ROOT'].'/../db.php';
 
+        $sql = "DELETE FROM matchup WHERE `tournament_id` = $tournament_id AND `round` = $max_round";
+
+//        echo "DELETE FROM matchup WHERE `tournament_id` = $tournament_id AND `round` = $max_round";
+        $result = @mysqli_query($cnxn, $sql);
+    }
 // insert player data into database and return
     // players_id
     function insertPlayer($name, $rating, $email, $pdganumber) {
@@ -194,13 +208,13 @@
 
                 if ($player1GetEmail['get_email'] == "1") {
                     $to = $email1;
-                    $message = '<h3>Hi there!</h3><p>You are receiving this email because someone has signed you up for the upcoming Disc Golf Competition, ' . $title . ', ' . $name1 . ' with ' . $rating1 . ' rating number will be competing against ' . $name2 . ' with ' . $rating2 . ' rating number .</p>, <p>Click here to report the score . <a href="https://tsvyanm.greenriverdev.com/355/MandosDiscGolf/functions/receivetoken.php?token=' . $playerID1 . '">Cancel!</a></p>';
+                    $message = '<h3>Hi there!</h3><p>You are receiving this email because someone has signed you up for the upcoming Disc Golf Competition, ' . $title . ', ' . $name1 . ' with ' . $rating1 . ' rating number will be competing against ' . $name2 . ' with ' . $rating2 . ' rating number .</p>, <p><a href="https://tsvyanm.greenriverdev.com/355/MandosDiscGolf/functions/receivetoken.php?token=' . $playerID1 . '">Cancel!</a></p>';
                     mail($to, $title, $message, $header);
                 }
 
                 if ($player2GetEmail['get_email'] == "1") {
                     $to = $email2;
-                    $message = '<h3>Hi there!</h3><p>You are receiving this email because someone has signed you up for the upcoming Disc Golf Competition, ' . $title . ', ' . $name1 . ' with ' . $rating1 . ' rating number will be competing against ' . $name2 . ' with ' . $rating2 . ' rating number .</p>, <p>Click here to report the score . <a href="https://tsvyanm.greenriverdev.com/355/MandosDiscGolf/functions/receivetoken.php?token=' . $playerID2 . '">Cancel!</a></p>';
+                    $message = '<h3>Hi there!</h3><p>You are receiving this email because someone has signed you up for the upcoming Disc Golf Competition, ' . $title . ', ' . $name1 . ' with ' . $rating1 . ' rating number will be competing against ' . $name2 . ' with ' . $rating2 . ' rating number .</p>, <p><a href="https://tsvyanm.greenriverdev.com/355/MandosDiscGolf/functions/receivetoken.php?token=' . $playerID2 . '">Cancel!</a></p>';
                     mail($to, $title, $message, $header);
                 }
     }

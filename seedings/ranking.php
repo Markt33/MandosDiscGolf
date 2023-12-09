@@ -94,6 +94,7 @@ require_once '../includes/admin_check.php';
 
 
 
+
         
         <table class="table table-responsive table-sm table-striped table-hover table-bordered border-dark caption-top mx-5 w-75">
             <caption>Sorted Players</caption>

@@ -5,6 +5,7 @@ include_once '../includes/session.php';
 require '../functions/functions.php';
 
 $tournaments = getAllTournaments();
+
 ?>
 
 <!DOCTYPE html>

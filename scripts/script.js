@@ -10,6 +10,24 @@ window.onload = function () {
     
 }
 
+
+// document.getElementById("buttonUndo").addEventListener("click", function() {
+//     var xhttp = new XMLHttpRequest();
+//     xhttp.onreadystatechange = function() {
+//         if (this.readyState == 4) {
+//             console.log("AJAX Request State: " + this.readyState);
+//             console.log("HTTP Status Code: " + this.status);
+//             console.log("Response Text: " + this.responseText);
+//         }
+//     };
+//     xhttp.open("POST", "functions/functions.php", true);
+//     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//     xhttp.send("action=buttonUndo");
+//
+//     console.log("AJAX request sent to functions/functions.php with action=buttonUndo");
+// });
+
+
 // default Bootstrap 5 function for form validation
 function formValidation() {
 
