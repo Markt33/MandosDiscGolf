@@ -17,6 +17,8 @@ require_once '../includes/admin_check.php';
         crossorigin="anonymous"
     />
     <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,7 +28,7 @@ require_once '../includes/admin_check.php';
 
 <header class="bg-dark">
     <div class="d-flex flex-column flex-sm-row align-items-center">
-        <div>    <a class="navbar-brand" href="../index.php"><img src="../assets/mandos_redesign_3.webp" id="logo" alt="mandos.gif"></a>
+        <div>    <a class="navbar-brand" href="../index.php"><img src="../assets/mandos_redesign_3.webp" id="logo" alt="mandos_redesign_3.webp"></a>
         </div>
 
         <div>
@@ -60,6 +62,8 @@ require_once '../includes/admin_check.php';
 <article>
     <!-- Import Section -->
     <div class="container mb-4">
+        <h2>Mando's Seeding Page</h2>
+        <h4>Upload your Seeding Page file:</h4>
         <label for="playersFile">Upload Excel File</label>
         <input type="file" class="form-control-file" id="playersFile" name="playersFile" accept=".xlsx" required>
         <br>
@@ -71,37 +75,11 @@ require_once '../includes/admin_check.php';
     </br>
 
     <div class="container mb-4">
+        <h4>Fill in by hand:</h4>
+        <p>(Fill in if you don't have a file)</p>
         <button type="button" class="btn btn-danger" onclick="generateFields(16)">16</button>
         <button type="button" class="btn btn-danger" onclick="generateFields(32)">32</button>
         <button type="button" class="btn btn-danger" onclick="generateFields(64)">64</button>
-    </div>
-
-    <!-- Column Mapping Interface (Initially hidden) -->
-    <div id="mapping-modal" class="container mb-4" style="display:none;">
-        <h3>Map Your Excel Columns:</h3>
-        <table class="table">
-            <tr>
-                <th>Our Column</th>
-                <th>Your Excel Column</th>
-            </tr>
-            <tr>
-                <td>Name</td>
-                <td><select class="map-dropdown" id="name-dropdown"></select></td>
-            </tr>
-            <tr>
-                <td>Rating</td>
-                <td><select class="map-dropdown" id="rating-dropdown"></select></td>
-            </tr>
-            <tr>
-                <td>PDGA Number</td>
-                <td><select class="map-dropdown" id="pdga-dropdown"></select></td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td><select class="map-dropdown" id="email-dropdown"></select></td>
-            </tr>
-        </table>
-        <button onclick="confirmMapping()" class="btn btn-danger">Confirm Mapping</button>
     </div>
 
     <!-- Seeding Form -->
@@ -138,7 +116,6 @@ require_once '../includes/admin_check.php';
     </br>
 </article>
 
-<!-- footer -->
 
 <footer class="w-100 bg-dark">
     </br>
@@ -167,8 +144,6 @@ require_once '../includes/admin_check.php';
 
 <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 <script>
-    let jsonData = [];
-
     function formatDate(inputDate) {
         const parts = inputDate.split('/');
         return `${parts[2]}-${parts[0].padStart(2, '0')}-${parts[1].padStart(2, '0')}`;
@@ -178,53 +153,9 @@ require_once '../includes/admin_check.php';
         document.getElementById('importBtn').addEventListener('click', handleFileUpload);
     });
 
-    // function handleFileUpload() {
-    //     const file = document.getElementById('playersFile').files[0];
-    //     // Log an error message to the console if no file.
-    //     if (!file) return console.error("No file selected");
-    //
-    //     const reader = new FileReader();
-    //     reader.onload = function(e) {
-    //         const data = new Uint8Array(e.target.result);
-    //         const workbook = XLSX.read(data, {type: 'array'});
-    //         const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-    //         const jsonData = XLSX.utils.sheet_to_json(firstSheet);
-    //         populateForm(jsonData);
-    //     };
-    //     reader.readAsArrayBuffer(file);
-    // }
-    // function handleFileUpload() {
-    //     const file = document.getElementById('playersFile').files[0];
-    //     if (!file) return console.error("No file selected");
-    //
-    //     const reader = new FileReader();
-    //     reader.onload = function(e) {
-    //         const data = new Uint8Array(e.target.result);
-    //         const workbook = XLSX.read(data, {type: 'array'});
-    //         const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-    //
-    //         // Read headers from the first row of the Excel file
-    //         let headers = XLSX.utils.sheet_to_json(firstSheet, { header: 1 })[0];
-    //
-    //         // Populate dropdowns in the mapping interface
-    //         document.querySelectorAll('.map-dropdown').forEach(dropdown => {
-    //             dropdown.innerHTML = ''; // Clear previous options
-    //             headers.forEach(header => {
-    //                 let option = document.createElement('option');
-    //                 option.value = header;
-    //                 option.textContent = header;
-    //                 dropdown.appendChild(option);
-    //             });
-    //         });
-    //
-    //         // Show mapping interface
-    //         document.getElementById('mapping-modal').style.display = 'block';
-    //     };
-    //     reader.readAsArrayBuffer(file);
-    // }
-
     function handleFileUpload() {
         const file = document.getElementById('playersFile').files[0];
+        // Log an error message to the console if no file.
         if (!file) return console.error("No file selected");
 
         const reader = new FileReader();
@@ -232,90 +163,10 @@ require_once '../includes/admin_check.php';
             const data = new Uint8Array(e.target.result);
             const workbook = XLSX.read(data, {type: 'array'});
             const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-
-            // Read headers from the first row of the Excel file
-            let headers = XLSX.utils.sheet_to_json(firstSheet, { header: 1 })[0];
-
-            // Populate dropdowns in the mapping interface
-            document.querySelectorAll('.map-dropdown').forEach(dropdown => {
-                dropdown.innerHTML = '';
-                headers.forEach(header => {
-                    let option = document.createElement('option');
-                    option.value = header;
-                    option.textContent = header;
-                    dropdown.appendChild(option);
-                });
-            });
-
-            // Show mapping interface
-            document.getElementById('mapping-modal').style.display = 'block';
-
-            // Parse and store the Excel data globally
-            jsonData = XLSX.utils.sheet_to_json(firstSheet);
+            const jsonData = XLSX.utils.sheet_to_json(firstSheet);
+            populateForm(jsonData);
         };
         reader.readAsArrayBuffer(file);
-    }
-
-    // function confirmMapping() {
-    //     // Object to hold the user's column mappings
-    //     let mappings = {
-    //         name: document.getElementById('name-mapping').value,
-    //         rating: document.getElementById('rating-mapping').value,
-    //         pdgaNumber: document.getElementById('pdganumber-mapping').value,
-    //         email: document.getElementById('email-mapping').value,
-    //         // Add other fields as necessary
-    //     };
-    //
-    //     // Process the Excel data using the mappings
-    //     processExcelData(mappings);
-    //
-    //     // Hide mapping interface
-    //     document.getElementById('mapping-modal').style.display = 'none';
-    // }
-
-    function confirmMapping() {
-        // Object to hold the user's column mappings
-        let mappings = {
-            name: document.getElementById('name-dropdown').value,
-            rating: document.getElementById('rating-dropdown').value,
-            pdgaNumber: document.getElementById('pdga-dropdown').value,
-            email: document.getElementById('email-dropdown').value,
-            // Add other fields as necessary
-        };
-
-        // Process the Excel data using the mappings
-        processExcelData(mappings);
-
-        // Hide mapping interface
-        document.getElementById('mapping-modal').style.display = 'none';
-    }
-
-    // function processExcelData(mappings) {
-    //     // Assuming `jsonData` is the parsed Excel data stored globally or passed as a parameter
-    //     jsonData.forEach((row, index) => {
-    //         document.querySelector(`input[name="players[${index}][name]"]`).value = row[mappings.name] || '';
-    //         document.querySelector(`input[name="players[${index}][rating]"]`).value = row[mappings.rating] || '';
-    //         document.querySelector(`input[name="players[${index}][pdganumber]"]`).value = row[mappings.pdgaNumber] || '';
-    //         document.querySelector(`input[name="players[${index}][email]"]`).value = row[mappings.email] || '';
-    //         // Add other fields as necessary
-    //     });
-    // }
-
-    function processExcelData(mappings) {
-        const dataLength = jsonData.length;
-
-        // Generate fields first based on dataLength
-        generateFields(dataLength);
-
-        // Populate form fields using mappings
-        for (let i = 0; i < dataLength; i++) {
-            let player = jsonData[i];
-            document.querySelector(`input[name="players[${i}][name]"]`).value = player[mappings.name] || '';
-            document.querySelector(`input[name="players[${i}][rating]"]`).value = player[mappings.rating] || '';
-            document.querySelector(`input[name="players[${i}][pdganumber]"]`).value = player[mappings.pdgaNumber] || '';
-            document.querySelector(`input[name="players[${i}][email]"]`).value = player[mappings.email] || '';
-            // Add other fields as necessary
-        }
     }
 
     function populateForm(data) {
