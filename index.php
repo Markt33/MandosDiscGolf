@@ -40,7 +40,7 @@ error_reporting(E_ALL);
                 <?php
                 if(isset($_SESSION['username'])){
                     echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="player_search.php">Player Search</a>';
-                    echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="seedings/seedingPage.php">Seedings</a>';
+                    echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="seedings/seedings.php">Seedings</a>';
                 }
                 ?>
                 <a class="flex-sm-fill text-sm-center nav-link alink" href="brackets/brackets.php">Brackets</a>
@@ -80,12 +80,14 @@ foreach ($random_matchups as $key => $value) {
                 <b>' . $value['title'] . '</b>
             </div>
             <div class="card-header text-center">
-                ' . $value['information'] . '<br><br> <em class="fs-7">Upcoming Competition</em>' . '
+                ' . $value['information'] . '<br><br> <em class="fs-7">Tournament inprogress</em>' . '
             </div>
+            <!--
             <ul class="list-group list-group-flush">
                 <li class="list-group-item text-center">' . $value['player1'] . '</li>
                 <li class="list-group-item text-center">' . $value['player2'] . ' </li>
             </ul>
+            -->
             </a>
         </div>';
 }
