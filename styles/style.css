@@ -238,3 +238,7 @@ input[type='radio']:not(:checked):disabled::before {
 .container {
   padding-top: 25px;
 }
+
+h2 {
+  text-align: center;
+}
