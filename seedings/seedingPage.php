@@ -34,8 +34,8 @@ require_once '../includes/admin_check.php';
                     <a class="flex-sm-fill text-sm-center nav-link alink" href="../index.php">Home</a>
                     <?php
                     if(isset($_SESSION['username'])){
-                        echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="../player_search.php">Player Search</a>';
-                        echo '<a class="flex-sm-fill text-sm-center nav-link alink new-active" href="seedings.php">Seedings</a>';
+                        //echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="../player_search.php">Player Search</a>';
+                        echo '<a class="flex-sm-fill text-sm-center nav-link alink new-active" href="seedingPage.php">Seedings</a>';
                     }
                     ?>
                     <a class="flex-sm-fill text-sm-center nav-link alink" href="../brackets/brackets.php">Brackets</a>
@@ -57,6 +57,8 @@ require_once '../includes/admin_check.php';
 <article>
     <!-- Import Section -->
     <div class="container mb-4">
+        <h2>Mando's Seeding Page</h2>
+        <h4>If you have an excel data file upload here:</h4>
         <label for="playersFile">Upload Excel File</label>
         <input type="file" class="form-control-file" id="playersFile" name="playersFile" accept=".xlsx" required>
         <br>
@@ -65,9 +67,11 @@ require_once '../includes/admin_check.php';
     </br>
     </br>
     <div class="container mb-4">
+        <h4>No File No Problem:</h4>
         <button type="button" class="btn btn-danger" onclick="generateFields(16)">16</button>
         <button type="button" class="btn btn-danger" onclick="generateFields(32)">32</button>
         <button type="button" class="btn btn-danger" onclick="generateFields(64)">64</button>
+        <p>*Choose a player set you would like to fill in*</p>
     </div>
     <!-- Column Mapping Interface (Initially hidden) -->
     <div id="mapping-modal" class="container mb-4" style="display:none;">
