@@ -33,8 +33,8 @@ require_once '../includes/admin_check.php';
                 <a class="flex-sm-fill text-sm-center nav-link alink" href="../index.php">Home</a>
                 <?php
                     if(isset($_SESSION['username'])){
-                        echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="../player_search.php">Player Search</a>';
-                        echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="seedings.php">Seedings</a>';
+                        //echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="../player_search.php">Player Search</a>';
+                        echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="seedingPage.php">Seedings</a>';
                     } 
                 ?>
                 <a class="flex-sm-fill text-sm-center nav-link alink" href="../brackets/brackets.php">Brackets</a>
