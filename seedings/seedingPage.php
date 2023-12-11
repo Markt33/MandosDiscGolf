@@ -11,14 +11,12 @@ require_once '../includes/admin_check.php';
 <head>
     <!--Bootstrap 5 CSS-->
     <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-        crossorigin="anonymous"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
     />
     <link rel="stylesheet" href="../styles/style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,60 +26,76 @@ require_once '../includes/admin_check.php';
 
 <header class="bg-dark">
     <div class="d-flex flex-column flex-sm-row align-items-center">
-        <div>    <a class="navbar-brand" href="../index.php"><img src="../assets/mandos_redesign_3.webp" id="logo" alt="mandos_redesign_3.webp"></a>
-        </div>
+            <div>    <a class="navbar-brand" href="../index.php"><img src="../assets/mandos_redesign_3.webp" id="logo" alt="mandos.gif"></a>
+            </div>
 
-        <div>
-            <nav class="nav nav-pills flex-column flex-sm-row navbar-dark bg-dark">
-                <a class="flex-sm-fill text-sm-center nav-link alink" href="../index.php">Home</a>
+            <div>
+                <nav class="nav nav-pills flex-column flex-sm-row navbar-dark bg-dark">
+                    <a class="flex-sm-fill text-sm-center nav-link alink" href="../index.php">Home</a>
+                    <?php
+                    if(isset($_SESSION['username'])){
+                        echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="../player_search.php">Player Search</a>';
+                        echo '<a class="flex-sm-fill text-sm-center nav-link alink new-active" href="seedings.php">Seedings</a>';
+                    }
+                    ?>
+                    <a class="flex-sm-fill text-sm-center nav-link alink" href="../brackets/brackets.php">Brackets</a>
+                </nav>
+            </div>
+            <nav class="nav ms-auto">
                 <?php
-                if(isset($_SESSION['username'])){
-                    echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="../player_search.php">Player Search</a>';
-                    echo '<a class="flex-sm-fill text-sm-center nav-link alink new-active" href="seedings.php">Seedings</a>';
+                if(!isset($_SESSION['username'])){
+                    echo '<a class="text-sm-center nav-link alink" href="../login.php">Login</a>';
+                } else {
+                    echo '<div id="loginName" class ="text-white">Hello '. $_SESSION['username'] .'! </div>';
+                    echo '<a class="text-sm-center nav-link alink" href="../logout.php">Logout</a>';
                 }
                 ?>
-                <a class="flex-sm-fill text-sm-center nav-link alink" href="../brackets/brackets.php">Brackets</a>
             </nav>
         </div>
-        <nav class="nav ms-auto">
-            <?php
-            if(!isset($_SESSION['username'])){
-                echo '<a class="text-sm-center nav-link alink" href="../login.php">Login</a>';
-            } else {
-                echo '<div id="loginName" class ="text-white">Hello '. $_SESSION['username'] .'! </div>';
-                echo '<a class="text-sm-center nav-link alink" href="../logout.php">Logout</a>';
-            }
-            ?>
-        </nav>
-    </div>
-
-    <h1 class="bg-dark text-center headertext"> Mando's Disc Golf Tournaments</h1>
-
+        <h1 class="bg-dark text-center headertext"> Mando's Disc Golf Tournaments</h1>
 </header>
-
 <article>
     <!-- Import Section -->
     <div class="container mb-4">
-        <h2>Mando's Seeding Page</h2>
-        <h4>Upload your Seeding Page file:</h4>
         <label for="playersFile">Upload Excel File</label>
         <input type="file" class="form-control-file" id="playersFile" name="playersFile" accept=".xlsx" required>
         <br>
         <button type="button" class="btn btn-danger" id="importBtn">Import</button>
     </div>
-
-
     </br>
     </br>
-
     <div class="container mb-4">
-        <h4>Fill in by hand:</h4>
-        <p>(Fill in if you don't have a file)</p>
         <button type="button" class="btn btn-danger" onclick="generateFields(16)">16</button>
         <button type="button" class="btn btn-danger" onclick="generateFields(32)">32</button>
         <button type="button" class="btn btn-danger" onclick="generateFields(64)">64</button>
     </div>
-
+    <!-- Column Mapping Interface (Initially hidden) -->
+    <div id="mapping-modal" class="container mb-4" style="display:none;">
+        <h3>Map Your Excel Columns:</h3>
+        <table class="table">
+            <tr>
+                <th>Our Column</th>
+                <th>Your Excel Column</th>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td><select class="map-dropdown" id="name-dropdown"></select></td>
+            </tr>
+            <tr>
+                <td>Rating</td>
+                <td><select class="map-dropdown" id="rating-dropdown"></select></td>
+            </tr>
+            <tr>
+                <td>PDGA Number</td>
+                <td><select class="map-dropdown" id="pdga-dropdown"></select></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><select class="map-dropdown" id="email-dropdown"></select></td>
+            </tr>
+        </table>
+        <button onclick="confirmMapping()" class="btn btn-danger">Confirm Mapping</button>
+    </div>
     <!-- Seeding Form -->
     <form
             class="container needs-validation"
@@ -90,11 +104,8 @@ require_once '../includes/admin_check.php';
             action="ranking.php"
             novalidate
     >
-
         <!-- Placeholder for Dynamic Player Fields -->
         <div id="dynamic-fieldset"></div>
-
-
         <!-- Submit button -->
         <div class="row mt-3">
             <div class="col">
@@ -111,12 +122,10 @@ require_once '../includes/admin_check.php';
         </div>
     </form>
     <!--End of container-->
-
     </br>
     </br>
 </article>
-
-
+<!-- footer -->
 <footer class="w-100 bg-dark">
     </br>
     </br>
@@ -128,12 +137,10 @@ require_once '../includes/admin_check.php';
     </br>
     </br>
     </br>
-
     <div class="d-flex flex-row justify-content-evenly mb-3">
         <div class="text-center p-3">
             © 2023 Copyright:
             <a class="text-secondary text-decoration-none"
-
                href="https://thepentagon.greenriverdev.com/"
             >The Pentagon Team</a
             >
@@ -141,45 +148,149 @@ require_once '../includes/admin_check.php';
     </div>
 </footer>
 </body>
-
 <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 <script>
+    let jsonData = [];
     function formatDate(inputDate) {
         const parts = inputDate.split('/');
         return `${parts[2]}-${parts[0].padStart(2, '0')}-${parts[1].padStart(2, '0')}`;
     }
-
     document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('importBtn').addEventListener('click', handleFileUpload);
     });
-
+    // function handleFileUpload() {
+    //     const file = document.getElementById('playersFile').files[0];
+    //     // Log an error message to the console if no file.
+    //     if (!file) return console.error("No file selected");
+    //
+    //     const reader = new FileReader();
+    //     reader.onload = function(e) {
+    //         const data = new Uint8Array(e.target.result);
+    //         const workbook = XLSX.read(data, {type: 'array'});
+    //         const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+    //         const jsonData = XLSX.utils.sheet_to_json(firstSheet);
+    //         populateForm(jsonData);
+    //     };
+    //     reader.readAsArrayBuffer(file);
+    // }
+    // function handleFileUpload() {
+    //     const file = document.getElementById('playersFile').files[0];
+    //     if (!file) return console.error("No file selected");
+    //
+    //     const reader = new FileReader();
+    //     reader.onload = function(e) {
+    //         const data = new Uint8Array(e.target.result);
+    //         const workbook = XLSX.read(data, {type: 'array'});
+    //         const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+    //
+    //         // Read headers from the first row of the Excel file
+    //         let headers = XLSX.utils.sheet_to_json(firstSheet, { header: 1 })[0];
+    //
+    //         // Populate dropdowns in the mapping interface
+    //         document.querySelectorAll('.map-dropdown').forEach(dropdown => {
+    //             dropdown.innerHTML = ''; // Clear previous options
+    //             headers.forEach(header => {
+    //                 let option = document.createElement('option');
+    //                 option.value = header;
+    //                 option.textContent = header;
+    //                 dropdown.appendChild(option);
+    //             });
+    //         });
+    //
+    //         // Show mapping interface
+    //         document.getElementById('mapping-modal').style.display = 'block';
+    //     };
+    //     reader.readAsArrayBuffer(file);
+    // }
     function handleFileUpload() {
         const file = document.getElementById('playersFile').files[0];
-        // Log an error message to the console if no file.
         if (!file) return console.error("No file selected");
-
         const reader = new FileReader();
         reader.onload = function(e) {
             const data = new Uint8Array(e.target.result);
             const workbook = XLSX.read(data, {type: 'array'});
             const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-            const jsonData = XLSX.utils.sheet_to_json(firstSheet);
-            populateForm(jsonData);
+            // Read headers from the first row of the Excel file
+            let headers = XLSX.utils.sheet_to_json(firstSheet, { header: 1 })[0];
+            // Populate dropdowns in the mapping interface
+            document.querySelectorAll('.map-dropdown').forEach(dropdown => {
+                dropdown.innerHTML = '';
+                headers.forEach(header => {
+                    let option = document.createElement('option');
+                    option.value = header;
+                    option.textContent = header;
+                    dropdown.appendChild(option);
+                });
+            });
+            // Show mapping interface
+            document.getElementById('mapping-modal').style.display = 'block';
+            // Parse and store the Excel data globally
+            jsonData = XLSX.utils.sheet_to_json(firstSheet);
         };
         reader.readAsArrayBuffer(file);
     }
-
-    function populateForm(data) {
-        const dataLength = data.length;
-
+    // function confirmMapping() {
+    //     // Object to hold the user's column mappings
+    //     let mappings = {
+    //         name: document.getElementById('name-mapping').value,
+    //         rating: document.getElementById('rating-mapping').value,
+    //         pdgaNumber: document.getElementById('pdganumber-mapping').value,
+    //         email: document.getElementById('email-mapping').value,
+    //         // Add other fields as necessary
+    //     };
+    //
+    //     // Process the Excel data using the mappings
+    //     processExcelData(mappings);
+    //
+    //     // Hide mapping interface
+    //     document.getElementById('mapping-modal').style.display = 'none';
+    // }
+    function confirmMapping() {
+        // Object to hold the user's column mappings
+        let mappings = {
+            name: document.getElementById('name-dropdown').value,
+            rating: document.getElementById('rating-dropdown').value,
+            pdgaNumber: document.getElementById('pdga-dropdown').value,
+            email: document.getElementById('email-dropdown').value,
+            // Add other fields as necessary
+        };
+        // Process the Excel data using the mappings
+        processExcelData(mappings);
+        // Hide mapping interface
+        document.getElementById('mapping-modal').style.display = 'none';
+    }
+    // function processExcelData(mappings) {
+    //     // Assuming `jsonData` is the parsed Excel data stored globally or passed as a parameter
+    //     jsonData.forEach((row, index) => {
+    //         document.querySelector(`input[name="players[${index}][name]"]`).value = row[mappings.name] || '';
+    //         document.querySelector(`input[name="players[${index}][rating]"]`).value = row[mappings.rating] || '';
+    //         document.querySelector(`input[name="players[${index}][pdganumber]"]`).value = row[mappings.pdgaNumber] || '';
+    //         document.querySelector(`input[name="players[${index}][email]"]`).value = row[mappings.email] || '';
+    //         // Add other fields as necessary
+    //     });
+    // }
+    function processExcelData(mappings) {
+        const dataLength = jsonData.length;
         // Generate fields first based on dataLength
         generateFields(dataLength);
-
+        // Populate form fields using mappings
+        for (let i = 0; i < dataLength; i++) {
+            let player = jsonData[i];
+            document.querySelector(`input[name="players[${i}][name]"]`).value = player[mappings.name] || '';
+            document.querySelector(`input[name="players[${i}][rating]"]`).value = player[mappings.rating] || '';
+            document.querySelector(`input[name="players[${i}][pdganumber]"]`).value = player[mappings.pdgaNumber] || '';
+            document.querySelector(`input[name="players[${i}][email]"]`).value = player[mappings.email] || '';
+            // Add other fields as necessary
+        }
+    }
+    function populateForm(data) {
+        const dataLength = data.length;
+        // Generate fields first based on dataLength
+        generateFields(dataLength);
         for (let i = 0; i < dataLength; i++) {
             let player = data[i];
             console.log(`Populating form for player ${i + 1}`);
             console.log(data[i]);
-
             document.querySelector(`input[name="players[${i}][name]"]`).value = player.name || '';
             // document.querySelector(`input[name="players[${i}][LastName]"]`).value = player.LastName || '';
             document.querySelector(`input[name="players[${i}][rating]"]`).value = player.rating || '';
@@ -193,18 +304,15 @@ require_once '../includes/admin_check.php';
             // }
         }
     }
-
     function generateFields(num) {
         // const formContainer = document.querySelector('.container.needs-validation');
         // formContainer.innerHTML = '';  // Clear current form fields
         const formContainer = document.querySelector('#dynamic-fieldset');
         formContainer.innerHTML = '';  // Clear current player fields only
-
         for (let i = 0; i < num; i++) {
             // Create fieldset for grouping
             let fieldset = document.createElement('fieldset');
             fieldset.className = "row gx-2 gy-2 input-group pb-2";
-
             // Create fields: Name, Rating, PDGA Number, Email
             const fields = [
                 { label: "Name", type: "text", max: null, placeholder: "Name", name: "name", pattern: ".{1,}", feedback: "Please provide a valid name." },
@@ -212,11 +320,9 @@ require_once '../includes/admin_check.php';
                 { label: "PDGA Number", type: "number", max: 1000000, placeholder: "PDGA Number", name: "pdganumber", pattern: null, feedback: "Please provide a valid PDGA number." },
                 { label: "Email address", type: "email", max: null, placeholder: "example@example.com", name: "email", pattern: "[A-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$", feedback: "Please provide a valid email address." }
             ];
-
             fields.forEach(field => {
                 let div = document.createElement('div');
                 div.className = "col-lg-3 col-md-6 col-sm-12 form-floating mb-2";
-
                 let input = document.createElement('input');
                 input.type = field.type;
                 if (field.max) input.setAttribute('max', field.max);
@@ -226,47 +332,38 @@ require_once '../includes/admin_check.php';
                 input.setAttribute('aria-label', field.name);
                 input.name = `players[${i}][${field.name}]`;
                 input.required = true;
-
                 let label = document.createElement('label');
                 label.innerText = field.label;
-
                 let validFeedback = document.createElement('div');
                 validFeedback.className = "valid-feedback";
                 validFeedback.innerText = "Looks good!";
-
                 let invalidFeedback = document.createElement('div');
                 invalidFeedback.className = "invalid-feedback";
                 invalidFeedback.innerText = field.feedback;
-
                 div.appendChild(input);
                 div.appendChild(label);
                 div.appendChild(validFeedback);
                 div.appendChild(invalidFeedback);
-
                 fieldset.appendChild(div);
             });
-
             // Append fieldset to the container
             formContainer.appendChild(fieldset);
         }
     }
-
-
 </script>
 <!-- JavaScript-->
 <script src="../scripts/script.js"></script>
 <!--Bootstrap 5 JavaScript plugins and Popper.-->
 <script
-    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-    crossorigin="anonymous"
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"
 ></script>
 <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-    crossorigin="anonymous"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"
 ></script>
-
 <!--Player 0-->
 <!--        --><?php
 //        $players_data = $_SESSION['players_data'] ?? [];
@@ -303,9 +400,4 @@ require_once '../includes/admin_check.php';
 //            echo '</fieldset>';
 //        }
 //        ?>
-
 </html>
-
-
-
-

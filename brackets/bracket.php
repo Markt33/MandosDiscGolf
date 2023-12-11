@@ -926,6 +926,28 @@ if (isset($_POST['action']) && $_POST['action'] == 'buttonUndo') {
 }
 //$_SESSION['deleteButtonExecuted'] = true;
 echo $_POST['deleteButton'];
+
+function updateDatabase($tournament_id, $max_round) {
+    // Perform database update logic here
+    echo "things are happening!";
+    // Assuming you have a table named 'your_table' and a unique identifier 'id'
+    $idToDelete = $_POST['idToDelete'];
+    echo $idToDelete;
+    require $_SERVER['DOCUMENT_ROOT'].'/../db.php';
+    // SQL query to delete data
+    $sql = "DELETE FROM matchup WHERE `tournament_id` = '$tournament_id' AND `round` = '$max_round'";
+    $result = @mysqli_query($cnxn, $sql);
+
+    // Reload the page after the update
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["updateButton"])) {
+    updateDatabase($tournament_id, $max_round);
+}
+
 var_dump($_POST['deleteButton']);
 if (isset($_POST['deleteButton']) && $_POST['deleteButton']=="1") {
     echo "things are happening!";
@@ -4786,9 +4808,9 @@ if ($size == 16) {
 
             }
             ?>
-            <form method="post">
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                 <label for="idToDelete">Enter 1 to Delete round:</label>
-                <input type="text" name="idToDelete" id="idToDelete" required>
+<!--                <input type="button" name="idToDelete" id="idToDelete" required>-->
                 <button type="submit" name="deleteButton" value="1" onclick="refreshPage()">Delete Record</button>
             </form>
 
