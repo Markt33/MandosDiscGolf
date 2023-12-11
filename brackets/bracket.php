@@ -694,9 +694,9 @@ if ($size == 16) {
             <a class="flex-sm-fill text-sm-center nav-link alink" href="../index.php">Home</a>
             <?php
             if (isset($_SESSION['username'])) {
-                echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="../player_search.php">Player Search</a>';
-                echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="../player_profile.php">Player Profile</a>';
-                echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="../seedings/seedings.php">Seedings</a>';
+                //echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="../player_search.php">Player Search</a>';
+                //echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="../player_profile.php">Player Profile</a>';
+                echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="../seedings/seedingPage.php">Seedings</a>';
             }
             ?>
             <a class="flex-sm-fill text-sm-center nav-link alink new-active" href="brackets.php">Brackets</a>
