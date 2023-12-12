@@ -4,6 +4,7 @@ include_once 'includes/session.php';
 require 'functions/functions.php';
 
 $random_matchups = getTenMatchup();
+$ten_matchups = getTenMatchup2();
 // test comment
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -39,7 +40,6 @@ error_reporting(E_ALL);
                 <a class="flex-sm-fill text-sm-center nav-link alink new-active" href="index.php">Home</a>
                 <?php
                 if(isset($_SESSION['username'])){
-                    //echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="player_search.php">Player Search</a>';
                     echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="seedings/seedingPage.php">Seedings</a>';
                 }
                 ?>
@@ -70,8 +70,20 @@ error_reporting(E_ALL);
     <div class="d-flex flex-row flex-wrap justify-content-evenly">
 
 <?php
+//echo $ten_matchups;
+//echo $random_matchups[1][2];
+// SELECT * FROM tournament ORDER BY tournament_id DESC LIMIT 10;
 
-foreach ($random_matchups as $key => $value) {
+
+//require $_SERVER['DOCUMENT_ROOT'].'/../db.php';
+//
+//
+//$sql = 'SELECT * FROM tournament ORDER BY tournament_id DESC LIMIT 10;';
+//
+//$result = @mysqli_query($cnxn, $sql);
+
+
+foreach ($ten_matchups as $key => $value) {
     $link = 'brackets/bracket.php?' . http_build_query(array('tournament_id' => $value["tournament_id"], 'matchup_id' => $value["matchup_id"]));
 
         echo '<div class="card">
@@ -80,14 +92,8 @@ foreach ($random_matchups as $key => $value) {
                 <b>' . $value['title'] . '</b>
             </div>
             <div class="card-header text-center">
-                ' . $value['information'] . '<br><br> <em class="fs-7">Tournament inprogress</em>' . '
+                ' . $value['information'] . '<em class="fs-7">Tournament inprogress</em>' . '
             </div>
-            <!--
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item text-center">' . $value['player1'] . '</li>
-                <li class="list-group-item text-center">' . $value['player2'] . ' </li>
-            </ul>
-            -->
             </a>
         </div>';
 }

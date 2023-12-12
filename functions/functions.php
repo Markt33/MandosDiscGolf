@@ -405,11 +405,34 @@
             $matchup = array("player1" => $row['player1'], "player2" => $row['player2'], "title" => $row['title'], "round" => $row['round'], "tournament_id" => $row['tournament_id'], "matchup_id" => $row['matchup_id'], "information" => $row['information']);
 
             $matchup_array[] = $matchup;
+//            echo $matchup;
 
         }
 
         return $matchup_array;
     }
+
+function getTenMatchup2() {
+    // connect to database
+    require $_SERVER['DOCUMENT_ROOT'].'/../db.php';
+
+
+    $sql = 'SELECT * FROM tournament ORDER BY tournament_id DESC LIMIT 10';
+
+    $result = @mysqli_query($cnxn, $sql);
+
+    $matchup_array = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+
+        $matchup = array("player1" => $row['player1'], "player2" => $row['player2'], "title" => $row['title'], "round" => $row['round'], "tournament_id" => $row['tournament_id'], "matchup_id" => $row['matchup_id'], "information" => $row['information']);
+
+        $matchup_array[] = $matchup;
+//        echo $matchup;
+
+    }
+
+    return $matchup_array;
+}
 
 
     // get All Tournaments
