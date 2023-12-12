@@ -500,47 +500,7 @@ if ($winner_id != 0) {
     closeTournament($tournament_id, $winner_id);
 }
 
-
-//
-//$newVariableValue = $_POST['newVariableValue'];
-//
-//// Set the global variable in the session
-//$_SESSION['myVariable'] = $newVariableValue;
-//
-//// Echo the updated variable value (you can customize this response)
-//echo $newVariableValue;
-//
-
-
-//if(isset($newVariableValue)){
-////    $counter--;
-//    require $_SERVER['DOCUMENT_ROOT'].'/../db.php';
-//
-//    $sql = "DELETE FROM matchup WHERE `tournament_id` = '$tournament_id' AND `round` = '$max_round'";
-//    $result = @mysqli_query($cnxn, $sql);
-//}
-//echo $tournament_id;
-//echo $max_round;
-//if (isset($_POST['action']) && $_POST['action'] == 'buttonUndo') {
-////    echo "$tournament_id";
-////    echo "$max_round";
-//
-//
-//
-////    echo "DELETE FROM matchup WHERE `tournament_id` = $tournament_id AND `round` = $max_round";
-//    buttonUndo($tournament_id, getMaxRound($tournament_id));
-//}
-//$_SESSION['deleteButtonExecuted'] = true;
-//echo $_POST['deleteButton'];
-var_dump($_POST['deleteButton']);
-//
-//if (!isset($_POST['deleteButton'])){
-//    $_SESSION['max_round'] = $max_round;
-//    echo "max rounds".$_SESSION['max_round'];
-//}
-
 if (isset($_POST['deleteButton']) && $_POST['deleteButton']==$max_round && $max_round!=1) {
-//    echo "things are happening!";
 
     // Assuming you have a table named 'your_table' and a unique identifier 'id'
 
@@ -550,89 +510,9 @@ if (isset($_POST['deleteButton']) && $_POST['deleteButton']==$max_round && $max_
     $result = @mysqli_query($cnxn, $sql);
 
     header("Location: " . $_SERVER['PHP_SELF']);
-//    exit();
 
 
 }
-echo $_SESSION['deleteButtonExecuted'];
-/*echo "Before unset: " . $_POST['deleteButton'] . "<br>";
-// Check if the 'deleteButton' is set and has a specific value
-if (isset($_POST['deleteButton']) && $_POST['deleteButton'] == "1") {
-    echo "Things are happening!<br>";
-    // Assuming you have a table named 'your_table' and a unique identifier 'id'
-    $idToDelete = $_POST['idToDelete'];
-    require $_SERVER['DOCUMENT_ROOT'].'/../db.php';
-    // SQL query to delete data
-    $sql = "DELETE FROM matchup WHERE `tournament_id` = '$tournament_id' AND `round` = '$max_round'";
-    $result = @mysqli_query($cnxn, $sql);
-    // Unset the 'deleteButton' variable
-    unset($_POST['deleteButton']);
-}
-echo "After unset: " . $_POST['deleteButton'] . "<br>";
-unset($_POST['deleteButton']);*/
-
-
-//if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['deleteButton']) && !isset($_SESSION['deleteButtonExecuted'])) {
-//    echo "Things are happening!<br>";
-//
-//    // Assuming you have a table named 'your_table' and a unique identifier 'id'
-//    $idToDelete = $_POST['idToDelete'];
-//
-//    // Validate and sanitize the input (replace with your validation logic)
-//    $idToDelete = filter_var($idToDelete, FILTER_VALIDATE_INT);
-//
-//    if ($idToDelete !== false) {
-//        // Include your database connection file
-//        require $_SERVER['DOCUMENT_ROOT'] . '/../db.php';
-//
-//        // SQL query to delete data
-//        $sql = "DELETE FROM matchup WHERE `tournament_id` = '$tournament_id' AND `round` = '$max_round'";
-//        $result = mysqli_query($cnxn, $sql);
-//
-//        // Check for errors
-//        if ($result) {
-//            echo "Record deleted successfully";
-//        } else {
-//            echo "Error deleting record: " . mysqli_error($cnxn);
-//        }
-//    } else {
-//        echo "Invalid ID provided.";
-//    }
-//
-//    // Set the flag to indicate that the code has run
-//    $_SESSION['deleteButtonExecuted'] = true;
-//}
-
-//if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['deleteButton']) && !isset($_SESSION['deleteButtonExecuted'])) {
-//    echo "Things are happening!<br>";
-//
-//    // Assuming you have a table named 'your_table' and a unique identifier 'id'
-//    $idToDelete = $_POST['idToDelete'];
-//
-//    // Validate and sanitize the input (replace with your validation logic)
-//    $idToDelete = filter_var($idToDelete, FILTER_VALIDATE_INT);
-//
-//    if ($idToDelete !== false) {
-//        // Include your database connection file
-//        require $_SERVER['DOCUMENT_ROOT'] . '/../db.php';
-//
-//        // SQL query to delete data
-//        $sql = "DELETE FROM matchup WHERE `tournament_id` = '$tournament_id' AND `round` = '$max_round'";
-//        $result = mysqli_query($cnxn, $sql);
-//
-//        // Check for errors
-//        if ($result) {
-//            echo "Record deleted successfully";
-//
-//            // Reset the session variable to allow the button to be used again
-//            unset($_SESSION['deleteButtonExecuted']);
-//        } else {
-//            echo "Error deleting record: " . mysqli_error($cnxn);
-//        }
-//    } else {
-//        echo "Invalid ID provided.";
-//    }
-//}
 
 
 ?>
@@ -694,8 +574,6 @@ if ($size == 16) {
             <a class="flex-sm-fill text-sm-center nav-link alink" href="../index.php">Home</a>
             <?php
             if (isset($_SESSION['username'])) {
-                //echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="../player_search.php">Player Search</a>';
-                //echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="../player_profile.php">Player Profile</a>';
                 echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="../seedings/seedingPage.php">Seedings</a>';
             }
             ?>
@@ -2507,64 +2385,20 @@ if ($size == 16) {
                 }
 
 
-                //                $_POST = json_decode(file_get_contents('php://input'), true);
-
-                //                if (isset($_POST['action']) && $_POST['action'] == 'buttonUndo') {
-                //                    buttonUndo();
-                //                }
-
-                //                if (isset($_POST['action']) && $_POST['action'] == 'buttonUndo') {
-                //                    buttonUndo();
-                //                }
-
-                //                if (isset($_POST['button_clicked'])) {
-                //                    buttonUndo($tournament_id, $max_round);
-                //                }
-                //                function undoButton($tournament_id, $max_round){
-                ////                    require $_SERVER['DOCUMENT_ROOT'].'/../db.php';
-                ////
-                ////                    $sql = "CALL sp_undo('.$tournament_id.','.$max_round.')";
-                ////
-                ////                    $result = @mysqli_query($cnxn, $sql);
-                ////
-                //                    echo 'function executed';
-                //                }
-
-                //                if (isset($_POST['action']) && $_POST['action'] == 'buttonUndo') {
-                //                    echo "$tournament_id";
-                ////    echo "$max_round";
-                //                    buttonUndo($tournament_id, getMaxRound($tournament_id));
-                //                }
-
 
                 if (isset($_SESSION['username'])) {
 
                     if ($winner_id == 0) {
-
-//                        echo '<button type="button" class="btn btn-outline-dark m-5" id="buttonUndo">Undo things round</button>';
                         echo '<button type="submit" value="Submit" onclick="formValidation()" class="btn btn-outline-dark m-5" id="button">Go To Next Round</button>';
-//                        echo '<button type="submit" value="Submit" onclick="formValidation()" class="btn btn-outline-dark m-5" id="button">Go To Next Round</button>';
-//                        echo '<button type="button" onclick="changeVariable()">Change Variable</button>';
-
                     }
                 }
 
-//                $newVariableValue = $_POST['newVariableValue'];
-//
-//                // Update the PHP variable
-//                $myVariable = $newVariableValue;
-//
-//                // Echo the updated variable value (you can customize this response)
-//                echo $myVariable;
+
 //                ?>
 
             </form>
             <?php
-//            echo $max_round;
-            //            $myVariable = 0;
 
-
-            // Check if the form is submitted
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Update the PHP variable with the new value from the form
                 $counter = $_POST["newVariableValue"];
