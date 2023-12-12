@@ -1,26 +1,15 @@
 <?php
-
-// Enables admin/visitor session to be used with this page 
-
+// Enables admin/visitor session to be used with this page
 global $myVariable, $myVariable;
 include_once '../includes/session.php';
-
 // call functions
-
 require '../functions/functions.php';
-
-
 $tournament_id = 0;
-
 $size = count($_POST['players']);
-
 //if (isset($_POST['action']) && $_POST['action'] == 'buttonUndo') {
 //    buttonUndo($tournament_id, $max_round);
 //}
-
-
 //check if it is the creation or the update process
-
 if (!isset($_POST['tournament_id']) && isset($_POST['title']) && (($size == 16) || ($size == 32) || ($size == 64))) {
     $tournamentId = $_POST['tournament_id'];
     $title = $_POST['title'];
@@ -36,12 +25,7 @@ if (!isset($_POST['tournament_id']) && isset($_POST['title']) && (($size == 16) 
     //=============================> sorting
     $groupArray = array();
     $sortedPlayers = array();
-
-
-
-
     function sortArray()
-
     {
         global $groupArray;
         for ($index = 0; $index < sizeof($groupArray); ++$index) {
@@ -191,15 +175,12 @@ $m_info3 = array();
 $m_info4 = array();
 $m_info5 = array();
 $m_info6 = array();
-
 //if (isset($_POST['action']) && $_POST['action'] == 'buttonUndo') {
 //    echo "$tournament_id";
 ////    echo "$max_round";
 //    buttonUndo($tournament_id, getMaxRound($tournament_id));
 //}
-
 if ($max_round == 1) {
-
     $m_info1 = getOnlyInfo($tournament_id);
 }
 if ($max_round == 2) {
@@ -500,7 +481,13 @@ if ($winner_id != 0) {
     closeTournament($tournament_id, $winner_id);
 }
 
+if(isset($_POST['deleteButton'])){
+    var_dump($_POST['deleteButton']);
+}
+
+
 if (isset($_POST['deleteButton']) && $_POST['deleteButton']==$max_round && $max_round!=1) {
+//    echo "things are happening!";
 
     // Assuming you have a table named 'your_table' and a unique identifier 'id'
 
@@ -510,32 +497,28 @@ if (isset($_POST['deleteButton']) && $_POST['deleteButton']==$max_round && $max_
     $result = @mysqli_query($cnxn, $sql);
 
     header("Location: " . $_SERVER['PHP_SELF']);
+//    exit();
 
 
 }
+echo $_SESSION['deleteButtonExecuted'];
+
 
 
 ?>
-
 <!--<form method="post">-->
 <!--    <label for="idToDelete">Enter ID to Delete:</label>-->
 <!--    <input type="text" name="idToDelete" id="idToDelete" required>-->
 <!--    <button type="submit" name="deleteButton">Delete Record</button>-->
 <!--</form>-->
-
-
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
-
     <link rel="stylesheet" href="../styles/style.css"/>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
     <?php
-
     if (isset($_GET['matchup_id'])) {
         $data_matchup = getMatchupData($_GET['matchup_id']);
         $matchup_round = $data_matchup["round"];
@@ -574,6 +557,8 @@ if ($size == 16) {
             <a class="flex-sm-fill text-sm-center nav-link alink" href="../index.php">Home</a>
             <?php
             if (isset($_SESSION['username'])) {
+                //echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="../player_search.php">Player Search</a>';
+                //echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="../player_profile.php">Player Profile</a>';
                 echo '<a class="flex-sm-fill text-sm-center nav-link alink" href="../seedings/seedingPage.php">Seedings</a>';
             }
             ?>
@@ -809,10 +794,8 @@ if ($size == 16) {
                 echo '<header class="bg-dark width-b-16">';
             }
             $insert = "bracket.php?tournament_id=".$tournament_id;
-//            echo htmlspecialchars($max_round);  echo htmlspecialchars($max_round);
+            //            echo htmlspecialchars($max_round);  echo htmlspecialchars($max_round);
             ?>
-
-
             <form name="bracket_page" method="POST" action="<?php echo htmlspecialchars($insert); ?>" >
                 <?php
                 echo '<input type="hidden" name="tournament_id" value="' . $tournament_id . '"/>';
@@ -2385,34 +2368,76 @@ if ($size == 16) {
                 }
 
 
+                //                $_POST = json_decode(file_get_contents('php://input'), true);
+
+                //                if (isset($_POST['action']) && $_POST['action'] == 'buttonUndo') {
+                //                    buttonUndo();
+                //                }
+
+                //                if (isset($_POST['action']) && $_POST['action'] == 'buttonUndo') {
+                //                    buttonUndo();
+                //                }
+
+                //                if (isset($_POST['button_clicked'])) {
+                //                    buttonUndo($tournament_id, $max_round);
+                //                }
+                //                function undoButton($tournament_id, $max_round){
+                ////                    require $_SERVER['DOCUMENT_ROOT'].'/../db.php';
+                ////
+                ////                    $sql = "CALL sp_undo('.$tournament_id.','.$max_round.')";
+                ////
+                ////                    $result = @mysqli_query($cnxn, $sql);
+                ////
+                //                    echo 'function executed';
+                //                }
+
+                //                if (isset($_POST['action']) && $_POST['action'] == 'buttonUndo') {
+                //                    echo "$tournament_id";
+                ////    echo "$max_round";
+                //                    buttonUndo($tournament_id, getMaxRound($tournament_id));
+                //                }
+
 
                 if (isset($_SESSION['username'])) {
 
                     if ($winner_id == 0) {
+
+//                        echo '<button type="button" class="btn btn-outline-dark m-5" id="buttonUndo">Undo things round</button>';
                         echo '<button type="submit" value="Submit" onclick="formValidation()" class="btn btn-outline-dark m-5" id="button">Go To Next Round</button>';
+//                        echo '<button type="submit" value="Submit" onclick="formValidation()" class="btn btn-outline-dark m-5" id="button">Go To Next Round</button>';
+//                        echo '<button type="button" onclick="changeVariable()">Change Variable</button>';
+
                     }
                 }
 
+                //                $newVariableValue = $_POST['newVariableValue'];
+                //
+                //                // Update the PHP variable
+                //                $myVariable = $newVariableValue;
+                //
+                //                // Echo the updated variable value (you can customize this response)
+                //                echo $myVariable;
 
-//                ?>
+                //                ?>
 
             </form>
             <?php
+            //            echo $max_round;
+            //            $myVariable = 0;
 
+
+            // Check if the form is submitted
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Update the PHP variable with the new value from the form
                 $counter = $_POST["newVariableValue"];
-
             }
             ?>
             <form action="<?php echo htmlspecialchars($insert); ?>" class="m-5" method="post">
                 <label for="idToDelete"></label>
-<!--                <input type="text" name="idToDelete" id="idToDelete" required>-->
+                <!--                <input type="text" name="idToDelete" id="idToDelete" required>-->
                 <button type="submit" name="deleteButton" class="btn btn-outline-dark" value="<?php echo htmlspecialchars($max_round); ?>">Delete Round</button>
                 <p>*Delete button may need multiple clicks*</p>
             </form>
-
-
 </article>
 <!-- footer -->
 <?php
@@ -2449,21 +2474,15 @@ if ($size == 16) {
     </div>
 </div>
 </footer>
-
 <script src="../scripts/script.js"></script>
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <!--Bootstrap 5 JavaScript plugins and Popper.-->
-
 <script>
     function refreshPage() {
         // Use JavaScript to reload or refresh the page
         location.reload();
     }
 </script>
-
-
 <script>
     function changeVariable() {
         // Make an AJAX request to a PHP script that changes the variable
@@ -2480,7 +2499,6 @@ if ($size == 16) {
         });
     }
 </script>
-
 <script>
     document.getElementById("buttonUndo").addEventListener("click", function() {
         console.log("button.click");
@@ -2495,18 +2513,15 @@ if ($size == 16) {
         xhttp.open("POST", "bracket.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("action=buttonUndo");
-
         console.log("AJAX request sent to functions/functions.php with action=buttonUndo");
     });
 </script>
-
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
-
 <script>
     // document.getElementById("buttonUndo").addEventListener("click", function() {
     //     let xhttp = new XMLHttpRequest();
@@ -2520,9 +2535,7 @@ if ($size == 16) {
     //     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     //     xhttp.send("action=undoRound");
     // });
-
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     });
